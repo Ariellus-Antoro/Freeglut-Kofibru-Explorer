@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++ build active project",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                // Mengambil semua file .cpp di dalam folder src
+                "${workspaceFolder}/src/*.cpp",
+                "-o",
+                // Mengarahkan hasil compile (exe) ke folder bin
+                "${workspaceFolder}/bin/main.exe",
+                
+                // Path relatif ke folder include dan lib di dalam project
+                "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib", 
+                
+                "-lfreeglut",
+                "-lopengl32",
+                "-lglu32",
+                "-lgdi32",
+                "-lwinmm"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Kompilasi modular OpenGL FreeGLUT untuk Tim"
+        }
+    ]
+}
