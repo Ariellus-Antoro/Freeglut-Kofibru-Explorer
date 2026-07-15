@@ -14,7 +14,7 @@
                 "${workspaceFolder}/src/utils/*.cpp",
 
                 //Uncomment ini misalkan mau menambahkan codingan object
-                // "${workspaceFolder}/src/objects/*.cpp",
+                "${workspaceFolder}/src/objects/*.cpp",
                 "-o",
                 // Mengarahkan hasil compile (exe) ke folder bin
                 "${workspaceFolder}/bin/main.exe",

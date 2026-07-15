@@ -3,9 +3,11 @@
 #include "utils/Camera.h"
 #include "core/Keyboard.h"
 #include "core/Mouse.h"
-
+#include "objects/gedung.h"
 // Inisialisasi Objek Kamera secara Global
 Camera playerCamera;
+
+Gedung kofibruBuilding;
 
 // Mengatur proyeksi 3D saat ukuran jendela berubah dengan menyesuaikan rasio
 void reshape(int w, int h) {
@@ -34,17 +36,7 @@ void display() {
 
     playerCamera.applyCamera();
 
-    //Test Segitiga
-    glBegin(GL_TRIANGLES);
-        glColor3f(1.0f, 0.0f, 0.0f); 
-        glVertex3f(-0.5f, 0.5f, -2.0f);
-
-        glColor3f(0.0f, 1.0f, 0.0f); 
-        glVertex3f(0.5f,  0.5f, -2.0f);
-
-        glColor3f(0.0f, 0.0f, 1.0f); 
-        glVertex3f(0.0f,  1.5f, -2.0f);
-    glEnd();
+    kofibruBuilding.drawAll();
 
     glutSwapBuffers();
 }
