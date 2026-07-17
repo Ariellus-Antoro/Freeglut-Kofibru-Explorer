@@ -161,7 +161,52 @@ void Gedung::drawLantai1() {
 }
 
 void Gedung::drawLantai2() {
+    // Elevasi lantai 2 dimulai di atas dinding Lantai 1 (3.5) + ketebalan kanopi (0.5)
+    float startY = 4.0f; 
+    float wallHeight = 3.5f; 
+    float wallThickness = 0.5f; 
+    
+    // Warna dinding Lantai 2 (Putih bersih sesuai referensi)
+    float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
+
+    // =========================================================
+    // 1. LANTAI / PIJAKAN LANTAI 2 (Menopang Overhang)
+    // =========================================================
+    drawBlock(-0.75f, startY - 0.05f, 0.5f, 13.5f, 0.1f, 11.0f, 0.7f, 0.7f, 0.7f);
+
+    // =========================================================
+    // 2. DINDING BELAKANG, KIRI, & KANAN
+    // =========================================================
+    // Dinding Belakang
+    drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
+
+    // Dinding Kiri 
+    drawBlock(-7.5f, startY, 0.5f, wallThickness, wallHeight, 11.0f, wallRed, wallGreen, wallBlue);
+
+    // Dinding Kanan
+    drawBlock(6.0f, startY, -0.75f, wallThickness, wallHeight, 8.5f, wallRed, wallGreen, wallBlue);
+
+    // =========================================================
+    // 3. FASAD MELENGKUNG (SUDUT KANAN DEPAN)
+    // =========================================================
+    float radius = 2.5f;
+    drawCylinder(3.5f, startY, 3.5f, radius, wallHeight, wallRed, wallGreen, wallBlue);
+
+    // =========================================================
+    // 4. DINDING DEPAN (OVERHANG & BALKON BESAR)
+    // =========================================================
+    drawWallWithHole(-7.5f, startY, 6.0f, 11.0f, wallHeight, wallThickness,
+                     1.0f, 0.5f, 6.0f, 2.5f, // Lubang jendela selebar 6.0
+                     wallRed, wallGreen, wallBlue);
+                     
+    drawBlock(-3.5f, startY + 0.5f, 6.0f, 0.5f, 2.5f, wallThickness, wallRed, wallGreen, wallBlue);
+
+    // =========================================================
+    // 5. ATAP LANTAI 2 / PLAFON
+    // =========================================================
+    drawBlock(-0.75f, startY + wallHeight, 0.5f, 13.5f, 0.5f, 11.0f, 0.8f, 0.8f, 0.8f);
 }
+
 
 void Gedung::drawLantai3() {
 }
@@ -172,7 +217,7 @@ void Gedung::drawAll() {
     glScalef(buildingScale, buildingScale, buildingScale); 
     
     drawLantai1();
-    // drawLantai2(); 
+    drawLantai2(); 
     
     glPopMatrix();
 }
