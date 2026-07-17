@@ -1,5 +1,6 @@
 #include "objects/Gedung.h"
 #include "objects/KursiBulat.h"
+#include "objects/MejaKasir.h"
 
 Gedung::Gedung() {
     // skala bangunan
@@ -162,25 +163,45 @@ void Gedung::drawLantai1() {
 }
 
 void Gedung::drawFurnitureLantai1(){
+
     // Kursi 1
     glPushMatrix();
 
-    glTranslatef(-3.0f, 0.2f, 2.0f);  // Posisi
-    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // Rotasi
-    glScalef(0.1f, 0.1f, 0.1f);         // Ukuran 50%
+    glTranslatef(1.5f, 0.1f, -2.0f);
+    glRotatef(-40.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
 
     chair.draw();
-
     glPopMatrix();
 
     // Kursi 2
     glPushMatrix();
 
-   glTranslatef(-3.0f, 0.2f, 2.0f);
+    glTranslatef(1.4f, 0.1f, -1.3f);
+    glRotatef(-50.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+    glPopMatrix();
+
+    // Kursi 3
+    glPushMatrix();
+
+    glTranslatef(1.5f, 0.1f, -0.7f);
     glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
     glScalef(0.1f, 0.1f, 0.1f);
 
     chair.draw();
+
+    glPopMatrix();
+    //meja kasir
+    glPushMatrix();
+
+    glTranslatef(-0.8f, 0.0f, -2.8f);   // Atur posisi
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f); // Arah hadap
+    glScalef(0.4f, 0.4f, 0.4f);         // Ukuran
+
+    cashierTable.draw();
 
     glPopMatrix();
 }
