@@ -165,9 +165,9 @@ void Gedung::drawFurnitureLantai1(){
     // Kursi 1
     glPushMatrix();
 
-    glTranslatef(-3.0f, 0.2f, 2.0f);  // Posisi
-    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // Rotasi
-    glScalef(0.1f, 0.1f, 0.1f);         // Ukuran 50%
+    glTranslatef(1.4f, 0.1f, -0.8f);
+    glRotatef(-20.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
 
     chair.draw();
 
@@ -176,8 +176,19 @@ void Gedung::drawFurnitureLantai1(){
     // Kursi 2
     glPushMatrix();
 
-   glTranslatef(-3.0f, 0.2f, 2.0f);
+    glTranslatef(1.4f, 0.1f, -1.4f);
     glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+
+    glPopMatrix();
+
+    // Kursi 3
+    glPushMatrix();
+
+    glTranslatef(1.4f, 0.1f, -2.0f);
+    glRotatef(-70.0f, 0.0f, 1.0f, 0.0f);
     glScalef(0.1f, 0.1f, 0.1f);
 
     chair.draw();
