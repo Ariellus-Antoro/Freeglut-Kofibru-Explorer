@@ -110,22 +110,17 @@ void Gedung::drawLantai1() {
     // =========================================================
     // 1. DINDING EKSTERIOR (BATAS LUAR BANGUNAN)
     // =========================================================
-    // Dinding Eksterior Kiri (Sisi terluar dari Ruang Utama / Main Area)
+    // Dinding Eksterior Kiri (Sisi dalam berada di X = -7.25f)
     drawBlock(-7.5f, startY, 0.0f, wallThickness, wallHeight, 10.0f, wallRed, wallGreen, wallBlue); 
     
-    // Dinding Eksterior Belakang (Membentang lurus menutupi Ruang Utama dan Toilet)
+    // Dinding Eksterior Belakang
     drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
     
     // =========================================================
     // 2. AREA TOILET & LORONG (SUDUT KANAN ATAS)
     // =========================================================
-    // Dinding Eksterior Kanan (Membentuk sisi kanan dari area toilet dan lorong)
     drawBlock(6.0f, startY, -2.0f, wallThickness, wallHeight, 6.0f, wallRed, wallGreen, wallBlue); 
-    
-    // Dinding Eksterior Depan Lorong (Menutup ujung lorong di sebelah kanan bangunan)
     drawBlock(5.0f, startY, 1.0f, 2.0f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
-    
-    // Dinding Sekat Depan Toilet (Dilengkapi lubang untuk pintu masuk toilet)
     drawWallWithHole(2.0f, startY, -1.0f, 4.0f, wallHeight, wallThickness, 
                      0.2f, 0.0f, 1.5f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
@@ -133,7 +128,6 @@ void Gedung::drawLantai1() {
     // =========================================================
     // 3. DINDING SEKAT INTERNAL (PEMBAGI RUANGAN)
     // =========================================================
-    // Dinding Sekat Vertikal (Memisahkan Ruang Utama di sebelah kiri dengan area Lorong/Toilet di kanan. Dilengkapi pintu penghubung internal)
     drawWallWithHoleZ(2.0f, startY, -5.0f, 7.0f, wallHeight, wallThickness, 
                       4.5f, 0.0f, 1.5f, 2.5f, 
                       wallRed, wallGreen, wallBlue);
@@ -141,23 +135,41 @@ void Gedung::drawLantai1() {
     // =========================================================
     // 4. AREA FASAD DEPAN & PINTU UTAMA
     // =========================================================
-    // Dinding Sudut Dalam Horizontal (Tembok yang menjorok ke dalam ruangan, tempat pintu penghubung depan berada)
     drawWallWithHole(-2.0f, startY, 2.0f, 4.0f, wallHeight, wallThickness, 
                      0.5f, 0.0f, 3.0f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
     
-    // Dinding Sudut Dalam Vertikal (Membentuk siku-siku pada area pintu depan yang menjorok ke dalam)
     drawBlock(-2.0f, startY, 3.5f, wallThickness, wallHeight, 3.0f, wallRed, wallGreen, wallBlue);
 
-    // Dinding Fasad Pintu Masuk (Batas depan Ruang Utama. Posisi lubang pintu diatur agar rata kanan menempel dengan dinding siku-siku)
+    // Pintu Utama berada di Z = 5.0f
     drawWallWithHole(-7.5f, startY, 5.0f, 5.5f, wallHeight, wallThickness, 
                      3.8f, 0.0f, 1.2f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
 
     // =========================================================
-    // 5. ATAP LANTAI 1 / PLAFON
+    // 5. PILAR DALAM (RUANG UTAMA)
     // =========================================================
-    // Berfungsi sebagai plafon untuk Lantai 1, sekaligus menjadi pijakan untuk Lantai 2 nanti
+    float pillarDepth = 1.0f; // Ukuran tebal pilar
+    
+    // PILAR 1: Paling dekat dengan pintu depan (Z = 4.0f)
+    // Menjorok ke dalam ruangan sebesar 1.0f
+    // Posisi X = Batas dinding (-7.25f) + Setengah dari lebar (0.5f) = -6.75f
+    float pilar1Width = 1.0f;
+    drawBlock(-6.75f, startY, 4.0f, pilar1Width, wallHeight, pillarDepth, wallRed, wallGreen, wallBlue);
+    
+    // PILAR 2: Berada di tengah (Z = 0.0f)
+    // Menjorok lebih jauh ke dalam ruangan sebesar 2.5f
+    // Posisi X = Batas dinding (-7.25f) + Setengah dari lebar (1.25f) = -6.0f
+    float pilar23Width = 2.5f;
+    drawBlock(-6.0f, startY, 0.0f, pilar23Width, wallHeight, pillarDepth, wallRed, wallGreen, wallBlue);
+    
+    // PILAR 3: Paling jauh dari pintu depan / Area belakang (Z = -4.0f)
+    // Ukuran dan panjang tonjolan disamakan dengan Pilar 2
+    drawBlock(-6.0f, startY, -4.0f, pilar23Width, wallHeight, pillarDepth, wallRed, wallGreen, wallBlue);
+
+    // =========================================================
+    // 6. ATAP LANTAI 1 / PLAFON
+    // =========================================================
     drawBlock(-0.75f, wallHeight, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 }
 
@@ -240,14 +252,9 @@ void Gedung::drawAll() {
     glPushMatrix();
     
     glScalef(buildingScale, buildingScale, buildingScale); 
-
-    drawLantai1();
-<<<<<<< HEAD
-    drawLantai2(); 
-=======
-    drawFurnitureLantai1();
-    // drawLantai2(); 
->>>>>>> 5557e9e08726aed9beb3f87fbbc3945f0769a469
     
+    drawLantai1();
+    drawLantai2(); 
+    drawFurnitureLantai1();    
     glPopMatrix();
 }
