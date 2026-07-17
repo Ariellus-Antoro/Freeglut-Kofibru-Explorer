@@ -3,7 +3,7 @@
 #include "utils/Camera.h"
 #include "core/Keyboard.h"
 #include "core/Mouse.h"
-#include "objects/gedung.h"
+#include "objects/Gedung.h"
 // Inisialisasi Objek Kamera secara Global
 Camera playerCamera;
 

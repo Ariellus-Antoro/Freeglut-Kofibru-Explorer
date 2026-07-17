@@ -1,4 +1,5 @@
 #include "objects/Gedung.h"
+#include "objects/KursiBulat.h"
 
 Gedung::Gedung() {
     // skala bangunan
@@ -160,6 +161,30 @@ void Gedung::drawLantai1() {
     drawBlock(-0.75f, wallHeight, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 }
 
+void Gedung::drawFurnitureLantai1(){
+    // Kursi 1
+    glPushMatrix();
+
+    glTranslatef(-3.0f, 0.2f, 2.0f);  // Posisi
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // Rotasi
+    glScalef(0.1f, 0.1f, 0.1f);         // Ukuran 50%
+
+    chair.draw();
+
+    glPopMatrix();
+
+    // Kursi 2
+    glPushMatrix();
+
+   glTranslatef(-3.0f, 0.2f, 2.0f);
+    glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+
+    glPopMatrix();
+}
+
 void Gedung::drawLantai2() {
     // Elevasi lantai 2 dimulai di atas dinding Lantai 1 (3.5) + ketebalan kanopi (0.5)
     float startY = 4.0f; 
@@ -215,9 +240,14 @@ void Gedung::drawAll() {
     glPushMatrix();
     
     glScalef(buildingScale, buildingScale, buildingScale); 
-    
+
     drawLantai1();
+<<<<<<< HEAD
     drawLantai2(); 
+=======
+    drawFurnitureLantai1();
+    // drawLantai2(); 
+>>>>>>> 5557e9e08726aed9beb3f87fbbc3945f0769a469
     
     glPopMatrix();
 }

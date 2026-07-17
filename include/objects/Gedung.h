@@ -1,7 +1,9 @@
 #ifndef GEDUNG_H
 #define GEDUNG_H
 
+
 #include <GL/freeglut.h>
+#include "objects/KursiBulat.h"
 
 /**
  * @class Gedung
@@ -18,6 +20,7 @@ public:
     void drawAll();
 
 private:
+    KursiBulat chair;
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 
     // =========================================================================
@@ -115,6 +118,15 @@ private:
      * @brief Merakit dan menggambar seluruh struktur Lantai 3 beserta atap utama gedung.
      */
     void drawLantai3();
+
+    // =========================================================================
+    // FLOOR Furniture
+    // ===================
+
+    /**
+     * @brief Merakit dan menggambar seluruh furniture pada Lantai 1 seperti meja, kursi, dan dekorasi.
+     */
+     void drawFurnitureLantai1();
 };
 
 #endif
