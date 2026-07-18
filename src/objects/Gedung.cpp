@@ -213,7 +213,35 @@ void Gedung::drawFurnitureLantai1(){
 
     rakKasir.draw();
 
-glPopMatrix();
+    glPopMatrix();
+
+     // =====================
+    glPushMatrix();
+    glTranslatef(-7.0f, 1.35f, 4.3f);  // X,Z sama dengan kasir; Y sedikit di atas permukaan meja kasir
+    glScalef(0.03f, 0.03f, 0.03f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // tegakkan model
+    gelas.draw();
+    glPopMatrix();
+
+    // =====================
+    // AC (menempel dinding, dekat plafon)
+    // =====================
+    // glPushMatrix();
+    // glTranslatef(-4.0f, 3.5f, -4.0f);   // Y mendekati wallHeight (3.5f), X/Z geser sesuai dinding yang dituju
+    // glScalef(0.02f, 0.01f, 0.01f);
+    // glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
+    // ac.draw();
+    // glPopMatrix();
+
+    // // =====================
+    // // CCTV (menempel plafon, di sebelah AC)
+    // // =====================
+    // glPushMatrix();
+    // glTranslatef(-2.5f, 3.2f, 0.2f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
+    // glScalef(0.02f, 0.02f, 0.02f);
+    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    // cctv.draw();
+    // glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
