@@ -266,6 +266,15 @@ void Gedung::drawFurnitureLantai1(){
     cashierTable.draw();
 
     glPopMatrix();
+
+    //menu
+    glPushMatrix();
+
+    glTranslatef(-2.5f, 1.2f, 2.0f);
+
+    menu.draw();
+
+    glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
@@ -323,7 +332,8 @@ void Gedung::drawAll() {
     glPushMatrix();
     
     glScalef(buildingScale, buildingScale, buildingScale); 
-    
+
+   
     drawLantai1();
     drawLantai2(); 
     drawFurnitureLantai1();    
