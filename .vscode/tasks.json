@@ -4,24 +4,26 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active project",
-            "command": "g++",
+            "command": "C:/MinGW/bin/g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                // Mengambil semua file .cpp di dalam folder src
                 "${workspaceFolder}/src/*.cpp",
                 "${workspaceFolder}/src/core/*.cpp",
                 "${workspaceFolder}/src/utils/*.cpp",
+                "${workspaceFolder}/src/objects/*.cpp", // Memastikan file Gedung.cpp temanmu ikut di-build
 
-                //Uncomment ini misalkan mau menambahkan codingan object
-                "${workspaceFolder}/src/objects/*.cpp",
                 "-o",
-                // Mengarahkan hasil compile (exe) ke folder bin
                 "${workspaceFolder}/bin/main.exe",
                 
-                // Path relatif ke folder include dan lib di dalam project
+                // 1. Daftarkan root include lokal agar core/, utils/, objects/ bisa dicari langsung
                 "-I${workspaceFolder}/include",
-                "-L${workspaceFolder}/lib", 
+                
+                // 2. Prioritaskan folder include FreeGLUT eksternal milikmu yang sukses
+                "-ID:/Kuliah/Semester_7/freeglut/include",
+                
+                // 3. Tembak langsung folder lib eksternal milikmu yang arsitekturnya cocok
+                "-LD:/Kuliah/Semester_7/freeglut/lib", 
                 
                 "-lfreeglut",
                 "-lopengl32",
@@ -30,7 +32,7 @@
                 "-lwinmm"
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "C:/MinGW/bin"
             },
             "problemMatcher": [
                 "$gcc"

@@ -17,3 +17,6 @@ build/
 .DS_Store
 Thumbs.db
 *.log
+debug_log.txt
+.vscode/c_cpp_properties.json
+.vscode/settings.json
