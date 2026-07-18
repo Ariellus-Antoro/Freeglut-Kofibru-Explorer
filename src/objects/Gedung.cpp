@@ -2,104 +2,15 @@
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
 #include "objects/Tangga.h"
+#include "utils/Helper.h"
 
+#include <math.h>
 
 Gedung::Gedung() {
     // skala bangunan
     buildingScale = 1.5f; 
 }
 
-void Gedung::drawBlock(float posX, float posY, float posZ, float w, float h, float d, float r, float g, float b) {
-    glPushMatrix();
-    glColor3f(r, g, b);
-    glTranslatef(posX, posY + (h / 2.0f), posZ); // Pivot di tengah bawah
-    glScalef(w, h, d);
-    glutSolidCube(1.0);
-    glPopMatrix();
-}
-
-void Gedung::drawCylinder(float posX, float posY, float posZ, float radius, float h, float r, float g, float b) {
-    glPushMatrix();
-    glColor3f(r, g, b);
-    glTranslatef(posX, posY, posZ);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    
-    GLUquadric* quad = gluNewQuadric();
-    gluCylinder(quad, radius, radius, h, 32, 1);
-    glTranslatef(0.0f, 0.0f, h);
-    gluDisk(quad, 0.0, radius, 32, 1);
-    
-    gluDeleteQuadric(quad);
-    glPopMatrix();
-}
-
-void Gedung::drawWallWithHole(float posX, float posY, float posZ, 
-                              float wallW, float wallH, float thickness, 
-                              float holeX, float holeY, float holeW, float holeH, 
-                              float r, float g, float b) {
-    
-    // 1. Bagian Kiri (Tembok dari ujung kiri sampai batas mulai lubang)
-    if (holeX > 0) {
-        float leftWidth = holeX;
-        float centerLeftX = posX + (leftWidth / 2.0f);
-        drawBlock(centerLeftX, posY, posZ, leftWidth, wallH, thickness, r, g, b);
-    }
-    
-    // 2. Bagian Kanan (Tembok dari batas akhir lubang sampai ujung kanan)
-    float rightWidth = wallW - (holeX + holeW);
-    if (rightWidth > 0) {
-        float centerRightX = posX + holeX + holeW + (rightWidth / 2.0f);
-        drawBlock(centerRightX, posY, posZ, rightWidth, wallH, thickness, r, g, b);
-    }
-    
-    // 3. Bagian Bawah (Tembok penahan di bawah jendela/lubang, dilewati jika ini adalah pintu)
-    if (holeY > 0) {
-        float centerHoleX = posX + holeX + (holeW / 2.0f);
-        drawBlock(centerHoleX, posY, posZ, holeW, holeY, thickness, r, g, b);
-    }
-    
-    // 4. Bagian Atas / Lintel (Tembok penghubung di atas pintu/jendela)
-    float topHeight = wallH - (holeY + holeH);
-    if (topHeight > 0) {
-        float centerHoleX = posX + holeX + (holeW / 2.0f);
-        float topY = posY + holeY + holeH;
-        drawBlock(centerHoleX, topY, posZ, holeW, topHeight, thickness, r, g, b);
-    }
-}
-
-void Gedung::drawWallWithHoleZ(float positionX, float positionY, float positionZ, 
-                               float wallDepth, float wallHeight, float wallThickness, 
-                               float holeZ, float holeY, float holeDepth, float holeHeight, 
-                               float colorRed, float colorGreen, float colorBlue) {
-    
-    // 1. Bagian Belakang (Tembok pada sumbu Z sebelum lubang)
-    if (holeZ > 0) {
-        float backDepth = holeZ;
-        float centerZ = positionZ + (backDepth / 2.0f);
-        drawBlock(positionX, positionY, centerZ, wallThickness, wallHeight, backDepth, colorRed, colorGreen, colorBlue);
-    }
-    
-    // 2. Bagian Depan (Tembok pada sumbu Z setelah lubang)
-    float frontDepth = wallDepth - (holeZ + holeDepth);
-    if (frontDepth > 0) {
-        float centerZ = positionZ + holeZ + holeDepth + (frontDepth / 2.0f);
-        drawBlock(positionX, positionY, centerZ, wallThickness, wallHeight, frontDepth, colorRed, colorGreen, colorBlue);
-    }
-    
-    // 3. Bagian Bawah (Dilewati jika yang dibuat adalah pintu)
-    if (holeY > 0) {
-        float centerZ = positionZ + holeZ + (holeDepth / 2.0f);
-        drawBlock(positionX, positionY, centerZ, wallThickness, holeY, holeDepth, colorRed, colorGreen, colorBlue);
-    }
-    
-    // 4. Bagian Atas / Lintel (Tembok di atas lubang pada sumbu Z)
-    float topHeight = wallHeight - (holeY + holeHeight);
-    if (topHeight > 0) {
-        float centerZ = positionZ + holeZ + (holeDepth / 2.0f);
-        float topY = positionY + holeY + holeHeight;
-        drawBlock(positionX, topY, centerZ, wallThickness, topHeight, holeDepth, colorRed, colorGreen, colorBlue);
-    }
-}
 
 void Gedung::drawKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize) {
     glPushMatrix();
@@ -279,27 +190,27 @@ void Gedung::drawFurnitureLantai1(){
 
     glPopMatrix();
     // Rak Atas
-glPushMatrix();
+    glPushMatrix();
 
-glTranslatef(-1.0f,2.5f,-4.6f);
+    glTranslatef(-1.0f,2.5f,-4.6f);
 
-glScalef(0.5f,0.5f,0.5f);
+    glScalef(0.5f,0.5f,0.5f);
 
-rakKasir.draw();
+    rakKasir.draw();
 
-glPopMatrix();
+    glPopMatrix();
 
 
-// Rak Bawah
-glPushMatrix();
+    // Rak Bawah
+    glPushMatrix();
 
-glTranslatef(-1.0f,1.7f,-4.6f);
+    glTranslatef(-1.0f,1.7f,-4.6f);
 
-glScalef(0.5f,0.5f,0.5f);
+    glScalef(0.5f,0.5f,0.5f);
 
-rakKasir.draw();
+    rakKasir.draw();
 
-glPopMatrix();
+    glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
@@ -367,11 +278,18 @@ void Gedung::drawLantai2() {
     // Dinding penyambung: X di 3.25 (merapat ke sisi lengkungan), Z di 7.0, kedalaman 2.0
     drawBlock(3.25f, startY, 7.0f, wallThickness, wallHeight, 2.0f, wallRed, wallGreen, wallBlue);
 
+// =========================================================
+    // 5. ATAP LANTAI 2 / PLAFON (Dengan Void Tangga ke L3)
     // =========================================================
-    // 5. ATAP LANTAI 2 / PLAFON
-    // =========================================================
+    // Atap Bagian Kanan (Menutup area kanan secara utuh)
     drawBlock(0.75f, startY + wallHeight, 1.5f, 10.5f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
-    drawBlock(-6.0f, startY + wallHeight, 1.5f, 3.0f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
+
+    // ---> INI BAGIAN YANG DILUBANGI UNTUK TANGGA <---
+    // Atap Bagian Kiri Dalam (Berhenti sebelum area tangga)
+    drawBlock(-6.0f, startY + wallHeight, 0.0f, 3.0f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
+
+    // Atap Bagian Kiri Depan (Melanjutkan penutup setelah area tangga)
+    drawBlock(-6.0f, startY + wallHeight, 7.5f, 3.0f, 0.5f, 1.0f, 0.8f, 0.8f, 0.8f);
 
     // =========================================================
     // TEMBOK SEKAT INTERNAL
@@ -392,8 +310,164 @@ void Gedung::drawLantai2() {
 
 
 void Gedung::drawLantai3() {
-}
+    float startY = 8.0f; 
+    
+    // Kita pisahkan tinggi dinding indoor dan eksterior
+    float wallHeight = 3.5f;      // Tinggi normal untuk ruang indoor
+    float fasadHeight = 8.0f;     // Tinggi dinding luar dibuat menjulang
+    float wallThickness = 0.5f;
+    
+    float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
+    float glassR = 0.85f, glassG = 0.85f, glassB = 0.85f;
 
+    // =========================================================
+    // 1. DINDING EKSTERIOR
+    // =========================================================
+    drawBlock(-0.75f, startY, -5.0f, 13.5f, fasadHeight, wallThickness, wallRed, wallGreen, wallBlue); // Belakang
+    drawBlock(-7.5f, startY, 1.5f, wallThickness, fasadHeight, 13.0f, wallRed, wallGreen, wallBlue);   // Kiri
+
+    // ---> DINDING KANAN (Rakitan 3 Jendela) <---
+    // Tembok Bawah (Sill) dan Tembok Atas (Header)
+    drawBlock(6.0f, startY, -0.75f, wallThickness, 1.0f, 8.5f, wallRed, wallGreen, wallBlue); 
+    drawBlock(6.0f, startY + 2.5f, -0.75f, wallThickness, fasadHeight - 2.5f, 8.5f, wallRed, wallGreen, wallBlue);
+    
+    // Pilar-pilar pemisah jendela
+    drawBlock(6.0f, startY + 1.0f, -4.25f, wallThickness, 1.5f, 1.5f, wallRed, wallGreen, wallBlue); // Pilar 1 (Paling Belakang)
+    drawBlock(6.0f, startY + 1.0f, -2.0f, wallThickness, 1.5f, 1.0f, wallRed, wallGreen, wallBlue);  // Pilar 2
+    drawBlock(6.0f, startY + 1.0f, 0.0f, wallThickness, 1.5f, 1.0f, wallRed, wallGreen, wallBlue);   // Pilar 3
+    drawBlock(6.0f, startY + 1.0f, 2.5f, wallThickness, 1.5f, 2.0f, wallRed, wallGreen, wallBlue);   // Pilar 4 (Paling Depan)
+
+    // =========================================================
+    // IMPLEMENTASI 3 JENDELA DENGAN FUNGSI HELPER
+    // =========================================================
+    float winWidth = 1.0f;  // Lebar bukaan jendela
+    float winHeight = 1.5f; // Tinggi bukaan jendela
+    float winThick = 0.3f;  // Ketebalan kusen
+
+    // Jendela 1 (Paling Belakang)
+    glPushMatrix();
+    glTranslatef(6.0f, startY + 1.0f, -3.0f); 
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); 
+    drawWindow(0.0f, 0.0f, 0.0f, winWidth, winHeight, winThick); 
+    glPopMatrix();
+
+    // Jendela 2 (Tengah)
+    glPushMatrix();
+    glTranslatef(6.0f, startY + 1.0f, -1.0f);
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+    drawWindow(0.0f, 0.0f, 0.0f, winWidth, winHeight, winThick);
+    glPopMatrix();
+
+    // Jendela 3 (Paling Depan)
+    glPushMatrix();
+    glTranslatef(6.0f, startY + 1.0f, 1.0f);
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+    drawWindow(0.0f, 0.0f, 0.0f, winWidth, winHeight, winThick);
+    glPopMatrix();
+
+    // =========================================================
+    // 2. RUANG INDOOR (Partisi Kaca)
+    // =========================================================
+    // Kaca biasanya jauh lebih tipis dari tembok beton standar, 
+    // jadi kita ubah ketebalannya dari 0.3f menjadi 0.1f
+    float indoorThickness = 0.1f; 
+    float alphaKaca = 0.35f;
+
+    // Dinding Kiri Indoor
+    drawBlock(-4.5f, startY, -1.0f, indoorThickness, wallHeight, 6.0f, glassR, glassG, glassB,alphaKaca);
+    
+    // Dinding Kanan Indoor
+    drawBlock(3.5f, startY, -1.0f, indoorThickness, wallHeight, 6.0f, glassR, glassG, glassB,alphaKaca);
+    
+    // Dinding Belakang Indoor
+    drawBlock(-0.5f, startY, -4.0f, 8.0f, wallHeight, indoorThickness, glassR, glassG, glassB,alphaKaca);
+
+    // Dinding Depan Indoor (Tetap menggunakan lubang untuk area pintu masuk)
+    drawWallWithHole(-4.5f, startY, 2.0f, 8.3f, wallHeight, indoorThickness, 
+                     3.15f, 0.0f, 2.0f, 2.5f, 
+                     glassR, glassG, glassB,alphaKaca);
+    // =========================================================
+    // 3. ATAP INDOOR
+    // =========================================================
+    drawBlock(-0.5f, startY + wallHeight, -1.0f, 8.3f, 0.5f, 6.3f, 0.8f, 0.8f, 0.8f);
+
+    // =========================================================
+    // 4. PAGAR BALKON OUTDOOR (Lurus & Melengkung)
+    // =========================================================
+    float pagarHeight = 1.2f; 
+    float pagarThickness = 0.2f; 
+
+    // Pagar Lurus Depan
+    drawBlock(-2.0f, startY, 8.0f, 11.0f, pagarHeight, pagarThickness, glassR, glassG, glassB,alphaKaca);
+    
+    // Pagar Konektor Kanan
+    drawBlock(3.25f, startY, 7.0f, pagarThickness, pagarHeight, 2.0f, glassR, glassG, glassB,alphaKaca);
+
+    // Mengganti gluCylinder dengan GL_QUAD_STRIP untuk menggambar 
+    // hanya seperempat lingkaran (kuadran luar) agar tidak tembus ke dalam.
+    glPushMatrix();
+    glTranslatef(3.5f, startY, 3.5f); // Titik pusat lengkungan
+
+    glEnable(GL_BLEND);                                  // <-- Aktifkan Kaca
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // <-- Aktifkan Kaca
+    glDepthMask(GL_FALSE);
+    glColor4f(glassR, glassG, glassB, alphaKaca);
+
+    glBegin(GL_QUAD_STRIP);
+    int segments = 16; 
+    float PI = 3.14159265f;
+    float radius = 2.5f;
+    
+    for (int i = 0; i <= segments; i++) {
+        float angle = i * (PI / 2.0f) / segments; 
+        float px = radius * cos(angle); 
+        float pz = radius * sin(angle);
+        
+        glVertex3f(px, 0.0f, pz);           
+        glVertex3f(px, pagarHeight, pz);    
+    }
+    glEnd();
+
+    glDisable(GL_BLEND);                                 // <-- Matikan Kaca
+    glDepthMask(GL_TRUE);
+    
+    glPopMatrix();
+
+    // =========================================================
+    // 5. ATAP UTAMA GEDUNG & KANOPI DEPAN
+    // =========================================================
+    // Atap Utama (Menutupi badan gedung dari belakang hingga batas melengkung)
+    drawBlock(-0.75f, startY + fasadHeight, -0.75f, 13.5f, 0.5f, 8.5f, 0.8f, 0.8f, 0.8f);
+    
+    // Atap Kanopi Ekstensi (Menjorok ke depan hanya di sisi kiri atas balkon)
+    drawBlock(-4.0f, startY + fasadHeight, 5.75f, 7.0f, 0.5f, 4.5f, 0.8f, 0.8f, 0.8f);
+
+    // =========================================================
+    // 6. PILAR PENYANGGA KANOPI (Agar tidak mengambang)
+    // =========================================================
+    // Ketebalan pilar dibuat 0.4f (ramping agar tidak menghalangi pandangan)
+    float pillarThick = 0.4f; 
+
+    // Pilar 1: Kiri Depan (Diletakkan dekat sudut luar pagar balkon L3)
+    drawBlock(-7.2f, startY, 7.7f, pillarThick, fasadHeight, pillarThick, wallRed, wallGreen, wallBlue);
+    
+    // Pilar 2: Kanan Depan (Diletakkan di ujung batas kanan kanopi)
+    drawBlock(-1.0f, startY, 7.7f, pillarThick, fasadHeight, pillarThick, wallRed, wallGreen, wallBlue);
+
+    // =========================================================
+    // 7. ATAP TEBAL
+    // =========================================================
+    // Warna fascia bisa dibuat sedikit lebih gelap dari atap agar ada kontras
+    float fR = 0.65f, fG = 0.65f, fB = 0.65f;
+    float fHeight = 0.8f; // Fascia sedikit lebih tinggi dari atap (0.5f)
+    float fThick = 0.2f;  // Sedikit menjorok ke luar
+    
+    // Bingkai depan (Memanjang sepanjang fasad)
+    drawBlock(-0.85f, startY + fasadHeight - 0.3f, -0.85f, 13.7f, fHeight, fThick, fR, fG, fB);
+    
+    // Bingkai samping kanan
+    drawBlock(6.1f, startY + fasadHeight - 0.3f, -0.85f, fThick, fHeight, 8.7f, fR, fG, fB);
+}
 void Gedung::drawAll() {
     glPushMatrix();
     
@@ -402,7 +476,9 @@ void Gedung::drawAll() {
    
     drawLantai1();
     drawLantai2(); 
+    drawLantai3();
     drawFurnitureLantai1();    
     tangga.draw(-6.0f, 0.0f, 6.0f);
+    tangga.draw(-6.0f, 4.0f, 6.0f);
     glPopMatrix();
 }
