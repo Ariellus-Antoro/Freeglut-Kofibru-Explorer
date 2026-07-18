@@ -268,6 +268,38 @@ void Gedung::drawFurnitureLantai1(){
     cashierTable.draw();
 
     glPopMatrix();
+
+    //menu
+    glPushMatrix();
+
+    glTranslatef(0.3f, 0.9f, -2.6f); // Di atas meja kasir
+    glScalef(0.3f,0.3f,0.3f);
+
+    menu.draw();
+
+    glPopMatrix();
+    // Rak Atas
+glPushMatrix();
+
+glTranslatef(-1.0f,2.5f,-4.6f);
+
+glScalef(0.5f,0.5f,0.5f);
+
+rakKasir.draw();
+
+glPopMatrix();
+
+
+// Rak Bawah
+glPushMatrix();
+
+glTranslatef(-1.0f,1.7f,-4.6f);
+
+glScalef(0.5f,0.5f,0.5f);
+
+rakKasir.draw();
+
+glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
@@ -340,7 +372,8 @@ void Gedung::drawAll() {
     glPushMatrix();
     
     glScalef(buildingScale, buildingScale, buildingScale); 
-    
+
+   
     drawLantai1();
     drawLantai2(); 
     drawFurnitureLantai1();    
