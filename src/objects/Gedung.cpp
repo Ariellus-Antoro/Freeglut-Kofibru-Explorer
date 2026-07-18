@@ -2,6 +2,9 @@
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
 #include "objects/Tangga.h"
+#include "objects/ktembok.h"
+#include "objects/mejakecil.h"
+#include "objects/gelas.h"
 #include "utils/Helper.h"
 
 #include <math.h>
@@ -203,7 +206,7 @@ void Gedung::drawFurnitureLantai1(){
 
     rakKasir.draw();
 
-    glPopMatrix();
+glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
