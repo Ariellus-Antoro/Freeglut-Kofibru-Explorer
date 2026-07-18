@@ -8,6 +8,9 @@
 #include "objects/Menu.h"
 #include "objects/Tangga.h"
 #include "objects/RakKasir.h"
+#include "objects/ktembok.h"
+#include "objects/mejakecil.h"
+#include "objects/gelas.h"
 
 /**
  * @class Gedung
@@ -29,6 +32,9 @@ private:
     Menu menu;
     Tangga tangga;
     RakKasir rakKasir;
+    KTembok sofa;
+    MejaKecil mejaKecil;
+    Gelas gelas;
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 

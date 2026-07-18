@@ -2,6 +2,9 @@
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
 #include "objects/Tangga.h"
+#include "objects/ktembok.h"
+#include "objects/mejakecil.h"
+#include "objects/gelas.h"
 
 
 Gedung::Gedung() {
@@ -300,6 +303,109 @@ glScalef(0.5f,0.5f,0.5f);
 rakKasir.draw();
 
 glPopMatrix();
+
+
+    //Sofa
+    glPushMatrix();
+
+    glTranslatef(-7.2f, 0.0f, 4.8f);
+
+    glScalef(0.01f,0.01f,0.024f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+    sofa.draw();
+
+    glPopMatrix();
+    
+    // meja kecil 1
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 4.0f);
+    glScalef(0.02f,0.01f,0.02f);
+
+    mejaKecil.draw();
+
+    glPopMatrix();
+
+    // Kursi deket meja kecil 1
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 4.3f);
+    glRotatef(-70.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 3.0f);
+    glRotatef(-50.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+
+    glTranslatef(-5.8f, 0.60f, 3.5f);
+    glRotatef(-90.0f, 3.0f, 0.0f, 0.0f);
+    glScalef(0.03f, 0.03f, 0.03f);
+
+    gelas.draw();
+    glPopMatrix();
+
+    //Sofa 2
+    glPushMatrix();
+
+    glTranslatef(-7.2f, 0.0f, 2.4f);
+
+    glScalef(0.01f,0.01f,0.024f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+    sofa.draw();
+
+    glPopMatrix();
+
+    // meja kecil 2
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 1.8f);
+    glScalef(0.02f,0.01f,0.02f);
+
+    mejaKecil.draw();
+
+    glPopMatrix();
+
+     // Kursi deket meja kecil 2
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 2.0f);
+    glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+
+    glTranslatef(-6.0f, 0.0f, 0.9f);
+    glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.1f);
+
+    chair.draw();
+    glPopMatrix();
+
+    // glPushMatrix();
+
+    // glTranslatef(-5.8f, 0.60f, 3.5f);
+    // glRotatef(-90.0f, 3.0f, 0.0f, 0.0f);
+    // glScalef(0.03f, 0.03f, 0.03f);
+
+    // gelas.draw();
+    // glPopMatrix();
+
+
 }
 
 void Gedung::drawLantai2() {
