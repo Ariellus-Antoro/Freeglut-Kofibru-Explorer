@@ -283,17 +283,22 @@ void Gedung::drawLantai2() {
     // 1. LANTAI / PIJAKAN LANTAI 2 (Menjorok ke Z = 8.0)
     // =========================================================
     // Sisi Kanan (Area utuh, menjorok ke depan menutupi teras)
-    // Kedalaman 13.0 (Z: -5.0 sampai 8.0 -> Center = 1.5)
-    drawBlock(0.75f, startY - 0.05f, 1.5f, 10.5f, 0.1f, 13.0f, 0.7f, 0.7f, 0.7f);
+   // 1A. Sisi Kanan Utama (Berhenti di Z = 6.0 agar tidak menembus keluar dinding lengkung)
+    // Lebar 10.5 (X: -4.5 sampai 6.0), Kedalaman 11.0 (Z: -5.0 sampai 6.0 -> Center Z = 0.5)
+    drawBlock(0.75f, startY - 0.05f, 0.5f, 10.5f, 0.1f, 11.0f, 0.7f, 0.7f, 0.7f);
     
-    // Sisi Kiri Dalam (Lantai interior di atas ruang utama L1)
-    // Kedalaman 10.0 (Z: -5.0 sampai 5.0 -> Center = 0.0)
+    // 1B. Ekstensi Balkon Tengah (Maju dari Z = 6.0 ke 8.0, berhenti merapat di dinding konektor X = 3.5)
+    // Lebar 8.0 (X: -4.5 sampai 3.5 -> Center X = -0.5), Kedalaman 2.0 (Z: 6.0 sampai 8.0 -> Center Z = 7.0)
+    drawBlock(-0.5f, startY - 0.05f, 7.0f, 8.0f, 0.1f, 2.0f, 0.7f, 0.7f, 0.7f);
+
+    // 1C. Sisi Kiri Dalam (Lantai interior di atas ruang utama L1)
+    // Kedalaman 10.0 (Z: -5.0 sampai 5.0 -> Center Z = 0.0)
     drawBlock(-6.0f, startY - 0.05f, 0.0f, 3.0f, 0.1f, 10.0f, 0.7f, 0.7f, 0.7f);
     
-    // Area Z=5.0 hingga Z=7.0 dibiarkan KOSONG sebagai void tangga
+    // (Area Z=5.0 hingga Z=7.0 di sebelah kiri dibiarkan KOSONG sebagai void tangga)
 
-    // Sisi Kiri Depan (Pijakan Balkon di depan void tangga)
-    // Kedalaman 1.0 (Z: 7.0 sampai 8.0 -> Center = 7.5)
+    // 1D. Sisi Kiri Depan (Pijakan Balkon menutupi area di depan void tangga)
+    // Kedalaman 1.0 (Z: 7.0 sampai 8.0 -> Center Z = 7.5)
     drawBlock(-6.0f, startY - 0.05f, 7.5f, 3.0f, 0.1f, 1.0f, 0.7f, 0.7f, 0.7f);
 
     // =========================================================
@@ -301,11 +306,14 @@ void Gedung::drawLantai2() {
     // =========================================================
     drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
 
-    // Dinding Kiri (Dimajukan sampai overhang Z=8.0 -> Kedalaman 13.0, Center = 1.5)
+    // Dinding Kiri
     drawBlock(-7.5f, startY, 1.5f, wallThickness, wallHeight, 13.0f, wallRed, wallGreen, wallBlue);
 
-    // Dinding Kanan 
-    drawBlock(6.0f, startY, -0.75f, wallThickness, wallHeight, 8.5f, wallRed, wallGreen, wallBlue);
+    // DINDING KANAN (Dengan Jendela)
+    drawWallWithHoleZ(6.0f, startY, -5.0f, 
+                      8.5f, wallHeight, wallThickness, 
+                      1.0f, 0.7f, 3.0f, 1.5f, 
+                      wallRed, wallGreen, wallBlue);
 
     // =========================================================
     // 3. FASAD MELENGKUNG (SUDUT KANAN DEPAN)
@@ -324,11 +332,29 @@ void Gedung::drawLantai2() {
     // Tiang pemisah (Mullion) di Z = 8.0
     drawBlock(-3.5f, startY + 0.5f, 8.0f, 0.5f, 2.5f, wallThickness, wallRed, wallGreen, wallBlue);
 
+    // Dinding penyambung: X di 3.25 (merapat ke sisi lengkungan), Z di 7.0, kedalaman 2.0
+    drawBlock(3.25f, startY, 7.0f, wallThickness, wallHeight, 2.0f, wallRed, wallGreen, wallBlue);
+
     // =========================================================
     // 5. ATAP LANTAI 2 / PLAFON
     // =========================================================
     drawBlock(0.75f, startY + wallHeight, 1.5f, 10.5f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
     drawBlock(-6.0f, startY + wallHeight, 1.5f, 3.0f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
+
+    // =========================================================
+    // TEMBOK SEKAT INTERNAL
+    // =========================================================
+
+    drawWallWithHole(-7.5f, startY, 3.5f, 
+                     13.5f, wallHeight, 0.3f, 
+                     4.0f, 0.0f, 2.0f, 2.5f, 
+                     wallRed, wallGreen, wallBlue);
+
+
+    drawWallWithHoleZ(3.0f, startY, -5.0f, 
+                      8.5f, wallHeight, 0.3f, 
+                      3.25f, 0.0f, 2.0f, 2.5f, 
+                      wallRed, wallGreen, wallBlue);
     
 }
 
