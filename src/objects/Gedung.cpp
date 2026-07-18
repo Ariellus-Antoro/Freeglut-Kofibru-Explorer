@@ -278,6 +278,28 @@ void Gedung::drawFurnitureLantai1(){
     menu.draw();
 
     glPopMatrix();
+    // Rak Atas
+glPushMatrix();
+
+glTranslatef(-1.0f,2.5f,-4.6f);
+
+glScalef(0.5f,0.5f,0.5f);
+
+rakKasir.draw();
+
+glPopMatrix();
+
+
+// Rak Bawah
+glPushMatrix();
+
+glTranslatef(-1.0f,1.7f,-4.6f);
+
+glScalef(0.5f,0.5f,0.5f);
+
+rakKasir.draw();
+
+glPopMatrix();
 }
 
 void Gedung::drawLantai2() {

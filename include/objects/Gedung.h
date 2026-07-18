@@ -7,6 +7,7 @@
 #include "objects/MejaKasir.h"
 #include "objects/Menu.h"
 #include "objects/Tangga.h"
+#include "objects/RakKasir.h"
 
 /**
  * @class Gedung
@@ -27,6 +28,7 @@ private:
     KursiBulat chair;
     Menu menu;
     Tangga tangga;
+    RakKasir rakKasir;
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 
