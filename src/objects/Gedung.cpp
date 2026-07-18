@@ -1,8 +1,4 @@
 #include "objects/Gedung.h"
-#include "objects/KursiBulat.h"
-#include "objects/MejaKasir.h"
-#include "objects/Tangga.h"
-
 
 Gedung::Gedung() {
     // skala bangunan
@@ -101,50 +97,14 @@ void Gedung::drawWallWithHoleZ(float positionX, float positionY, float positionZ
     }
 }
 
-void Gedung::drawKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize) {
-    glPushMatrix();
-    
-    // Menempatkan lantai pada elevasi (Y) yang diminta
-    glTranslatef(0.0f, posY, 0.0f); 
-
-    glBegin(GL_QUADS);
-    int row = 0;
-    for (float z = startZ; z < endZ; z += tileSize) {
-        int col = 0;
-        for (float x = startX; x < endX; x += tileSize) {
-            
-            // Logika selang-seling warna keramik
-            if ((row + col) % 2 == 0) {
-                glColor3f(0.85f, 0.85f, 0.85f); // Warna terang
-            } else {
-                glColor3f(0.70f, 0.70f, 0.70f); // Warna agak gelap
-            }
-
-            // Menggambar 1 kotak keramik
-            glVertex3f(x, 0.0f, z);
-            glVertex3f(x + tileSize, 0.0f, z);
-            glVertex3f(x + tileSize, 0.0f, z + tileSize);
-            glVertex3f(x, 0.0f, z + tileSize);
-            
-            col++;
-        }
-        row++;
-    }
-    glEnd();
-    glPopMatrix();
-}
-
 void Gedung::drawLantai1() {
     float startY = 0.0f;
     float wallHeight = 3.5f; 
     float wallThickness = 0.5f; 
     float wallRed = 0.75f, wallGreen = 0.75f, wallBlue = 0.75f; // Warna dinding abu-abu standar
 
-    // =========================================================
-    // 0. Ubin
-    // ========================================================
-    
-    drawKeramik(-7.5f, -5.0f, 6.0f, 5.0f, -0.05f, 1.2f);
+    // Alas / Pijakan Lantai 1 (Lebar diperluas untuk menutupi seluruh area bangunan)
+    drawBlock(-0.75f, -0.1f, 0.0f, 13.5f, 0.1f, 10.0f, 0.5f, 0.5f, 0.5f);
 
     // =========================================================
     // 1. DINDING EKSTERIOR (BATAS LUAR BANGUNAN)
@@ -194,144 +154,14 @@ void Gedung::drawLantai1() {
                      wallRed, wallGreen, wallBlue);
 
     // =========================================================
-    // 5. AREA BOOTH SEATING (SISI KIRI MAIN AREA)
+    // 5. ATAP LANTAI 1 / PLAFON
     // =========================================================
-    // Kedalaman semua pilar/partisi disamakan agar membentuk dinding lurus 
-    // dengan cekungan di dalamnya (sesuai referensi foto).
-    
-    float protrusion = 2.5f; // Seberapa jauh dinding menjorok ke tengah ruangan
-    float boothX = -7.25f + (protrusion / 2.0f); // X = -6.0f (Agar menempel dinding kiri)
-    
-    float greyColor = 0.45f;  // Warna abu-abu gelap untuk partisi samping
-    float whiteColor = 0.95f; // Warna putih bersih untuk pilar tengah
-
-    // 5A. Partisi Depan (Pembatas dekat meja kasir)
-    float depthPartisiDepan = 0.3f;
-    drawBlock(boothX, startY, 2.5f, protrusion, wallHeight, depthPartisiDepan, greyColor, greyColor, greyColor);
-
-    // 5B. Pilar Tengah (Tebal & Berwarna Putih)
-    float depthPilarTengah = 1.2f;
-    drawBlock(boothX, startY, 0.0f, protrusion, wallHeight, depthPilarTengah, whiteColor, whiteColor, whiteColor);
-
-    // 5C. Partisi / Kotak Belakang (Menempel ke sudut belakang)
-    float depthPartisiBelakang = 1.5f;
-    float zPartisiBelakang = -4.75f + (depthPartisiBelakang / 2.0f); // Merapat ke belakang
-    drawBlock(boothX, startY, zPartisiBelakang, protrusion, wallHeight, depthPartisiBelakang, greyColor, greyColor, greyColor);
-
-// =========================================================
-    // 6. ATAP LANTAI 1 / PLAFON (Dengan Void Tangga)
-    // =========================================================
-    // Bagian Kanan (Menutup area utama hingga batas void)
-    // Lebar 10.5 (X: -4.5 sampai 6.0), Kedalaman utuh 10.0 (Z: -5.0 sampai 5.0)
+    // Berfungsi sebagai plafon untuk Lantai 1, sekaligus menjadi pijakan untuk Lantai 2 nanti
     drawBlock(-0.75f, wallHeight, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 }
 
-void Gedung::drawFurnitureLantai1(){
-
-    // Kursi 1
-    glPushMatrix();
-
-    glTranslatef(1.5f, 0.1f, -2.0f);
-    glRotatef(-40.0f, 0.0f, 1.0f, 0.0f);
-    glScalef(0.1f, 0.1f, 0.1f);
-
-    chair.draw();
-    glPopMatrix();
-
-    // Kursi 2
-    glPushMatrix();
-
-    glTranslatef(1.4f, 0.1f, -1.3f);
-    glRotatef(-50.0f, 0.0f, 1.0f, 0.0f);
-    glScalef(0.1f, 0.1f, 0.1f);
-
-    chair.draw();
-    glPopMatrix();
-
-    // Kursi 3
-    glPushMatrix();
-
-    glTranslatef(1.5f, 0.1f, -0.7f);
-    glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
-    glScalef(0.1f, 0.1f, 0.1f);
-
-    chair.draw();
-
-    glPopMatrix();
-    //meja kasir
-    glPushMatrix();
-
-    glTranslatef(-0.8f, 0.0f, -2.8f);   // Atur posisi
-    glRotatef(180.0f, 0.0f, 1.0f, 0.0f); // Arah hadap
-    glScalef(0.4f, 0.4f, 0.4f);         // Ukuran
-
-    cashierTable.draw();
-
-    glPopMatrix();
-}
-
 void Gedung::drawLantai2() {
-    // Elevasi lantai 2 dimulai di atas dinding Lantai 1 (3.5) + ketebalan kanopi (0.5)
-    float startY = 4.0f; 
-    float wallHeight = 3.5f; 
-    float wallThickness = 0.5f; 
-    
-    // Warna dinding Lantai 2 (Putih bersih sesuai referensi)
-    float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
-
-// =========================================================
-    // 1. LANTAI / PIJAKAN LANTAI 2 (Menjorok ke Z = 8.0)
-    // =========================================================
-    // Sisi Kanan (Area utuh, menjorok ke depan menutupi teras)
-    // Kedalaman 13.0 (Z: -5.0 sampai 8.0 -> Center = 1.5)
-    drawBlock(0.75f, startY - 0.05f, 1.5f, 10.5f, 0.1f, 13.0f, 0.7f, 0.7f, 0.7f);
-    
-    // Sisi Kiri Dalam (Lantai interior di atas ruang utama L1)
-    // Kedalaman 10.0 (Z: -5.0 sampai 5.0 -> Center = 0.0)
-    drawBlock(-6.0f, startY - 0.05f, 0.0f, 3.0f, 0.1f, 10.0f, 0.7f, 0.7f, 0.7f);
-    
-    // Area Z=5.0 hingga Z=7.0 dibiarkan KOSONG sebagai void tangga
-
-    // Sisi Kiri Depan (Pijakan Balkon di depan void tangga)
-    // Kedalaman 1.0 (Z: 7.0 sampai 8.0 -> Center = 7.5)
-    drawBlock(-6.0f, startY - 0.05f, 7.5f, 3.0f, 0.1f, 1.0f, 0.7f, 0.7f, 0.7f);
-
-    // =========================================================
-    // 2. DINDING BELAKANG, KIRI, & KANAN
-    // =========================================================
-    drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
-
-    // Dinding Kiri (Dimajukan sampai overhang Z=8.0 -> Kedalaman 13.0, Center = 1.5)
-    drawBlock(-7.5f, startY, 1.5f, wallThickness, wallHeight, 13.0f, wallRed, wallGreen, wallBlue);
-
-    // Dinding Kanan 
-    drawBlock(6.0f, startY, -0.75f, wallThickness, wallHeight, 8.5f, wallRed, wallGreen, wallBlue);
-
-    // =========================================================
-    // 3. FASAD MELENGKUNG (SUDUT KANAN DEPAN)
-    // =========================================================
-    float radius = 2.5f;
-    drawCylinder(3.5f, startY, 3.5f, radius, wallHeight, wallRed, wallGreen, wallBlue);
-
-    // =========================================================
-    // 4. DINDING DEPAN (OVERHANG & BALKON BESAR)
-    // =========================================================
-    // Dinding balkon ditarik maju ke Z = 8.0
-    drawWallWithHole(-7.5f, startY, 8.0f, 11.0f, wallHeight, wallThickness,
-                     1.0f, 0.5f, 6.0f, 2.5f, 
-                     wallRed, wallGreen, wallBlue);
-                     
-    // Tiang pemisah (Mullion) di Z = 8.0
-    drawBlock(-3.5f, startY + 0.5f, 8.0f, 0.5f, 2.5f, wallThickness, wallRed, wallGreen, wallBlue);
-
-    // =========================================================
-    // 5. ATAP LANTAI 2 / PLAFON
-    // =========================================================
-    drawBlock(0.75f, startY + wallHeight, 1.5f, 10.5f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
-    drawBlock(-6.0f, startY + wallHeight, 1.5f, 3.0f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
-    
 }
-
 
 void Gedung::drawLantai3() {
 }
@@ -342,8 +172,7 @@ void Gedung::drawAll() {
     glScalef(buildingScale, buildingScale, buildingScale); 
     
     drawLantai1();
-    drawLantai2(); 
-    drawFurnitureLantai1();    
-    tangga.draw(-6.0f, 0.0f, 6.0f);
+    // drawLantai2(); 
+    
     glPopMatrix();
 }

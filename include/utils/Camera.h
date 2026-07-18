@@ -30,11 +30,9 @@ public:
     // Menggerakan kamera ke kanan
     void MoveRight(float speed);
 
+private:
     // Posisi kamera dalam koordinat dunia.
     float eyeX, eyeY, eyeZ;
-
-private:
-
 
     // Vektor arah pandangan kamera.
     float dirX, dirY, dirZ;

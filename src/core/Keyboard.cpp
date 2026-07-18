@@ -33,16 +33,6 @@ void handleKeyboard(unsigned char key, int x, int y) {
             playerCamera.MoveRight(speed);
             break;
 
-        case '1':
-            playerCamera.eyeY = 1.5f; // Elevasi mata normal di Lantai 1
-            break;
-        case '2':
-            playerCamera.eyeY = 8.0f; // Elevasi Lantai 2
-            break;
-        case '3':
-            playerCamera.eyeY = 14.0f; 
-            break;
-
         // ESC untuk exit
         case 27: // Kode ASCII ESC
             exit(0);
