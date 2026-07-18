@@ -100,14 +100,50 @@ void Gedung::drawWallWithHoleZ(float positionX, float positionY, float positionZ
     }
 }
 
+void Gedung::drawKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize) {
+    glPushMatrix();
+    
+    // Menempatkan lantai pada elevasi (Y) yang diminta
+    glTranslatef(0.0f, posY, 0.0f); 
+
+    glBegin(GL_QUADS);
+    int row = 0;
+    for (float z = startZ; z < endZ; z += tileSize) {
+        int col = 0;
+        for (float x = startX; x < endX; x += tileSize) {
+            
+            // Logika selang-seling warna keramik
+            if ((row + col) % 2 == 0) {
+                glColor3f(0.85f, 0.85f, 0.85f); // Warna terang
+            } else {
+                glColor3f(0.70f, 0.70f, 0.70f); // Warna agak gelap
+            }
+
+            // Menggambar 1 kotak keramik
+            glVertex3f(x, 0.0f, z);
+            glVertex3f(x + tileSize, 0.0f, z);
+            glVertex3f(x + tileSize, 0.0f, z + tileSize);
+            glVertex3f(x, 0.0f, z + tileSize);
+            
+            col++;
+        }
+        row++;
+    }
+    glEnd();
+    glPopMatrix();
+}
+
 void Gedung::drawLantai1() {
     float startY = 0.0f;
     float wallHeight = 3.5f; 
     float wallThickness = 0.5f; 
     float wallRed = 0.75f, wallGreen = 0.75f, wallBlue = 0.75f; // Warna dinding abu-abu standar
 
-    // Alas / Pijakan Lantai 1 (Lebar diperluas untuk menutupi seluruh area bangunan)
-    drawBlock(-0.75f, -0.1f, 0.0f, 13.5f, 0.1f, 10.0f, 0.5f, 0.5f, 0.5f);
+    // =========================================================
+    // 0. Ubin
+    // ========================================================
+    
+    drawKeramik(-7.5f, -5.0f, 6.0f, 5.0f, -0.05f, 1.2f);
 
     // =========================================================
     // 1. DINDING EKSTERIOR (BATAS LUAR BANGUNAN)
