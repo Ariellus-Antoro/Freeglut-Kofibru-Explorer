@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
+#include "objects/Tangga.h"
 
 /**
  * @class Gedung
@@ -23,6 +24,8 @@ public:
 private:
     MejaKasir cashierTable;
     KursiBulat chair;
+    Tangga tangga;
+
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 
     // =========================================================================
