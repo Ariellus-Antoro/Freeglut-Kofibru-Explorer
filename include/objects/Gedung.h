@@ -11,6 +11,7 @@
 #include "objects/ktembok.h"
 #include "objects/mejakecil.h"
 #include "objects/gelas.h"
+#include "objects/ac.h"
 
 
 /**
@@ -36,6 +37,7 @@ private:
     KTembok sofa;
     MejaKecil mejaKecil;
     Gelas gelas;
+    AC ac;
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 
