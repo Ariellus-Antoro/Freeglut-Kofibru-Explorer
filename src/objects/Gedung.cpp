@@ -1,6 +1,7 @@
 #include "objects/Gedung.h"
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
+#include "objects/Tangga.h"
 
 
 Gedung::Gedung() {
@@ -217,10 +218,11 @@ void Gedung::drawLantai1() {
     float zPartisiBelakang = -4.75f + (depthPartisiBelakang / 2.0f); // Merapat ke belakang
     drawBlock(boothX, startY, zPartisiBelakang, protrusion, wallHeight, depthPartisiBelakang, greyColor, greyColor, greyColor);
 
+// =========================================================
+    // 6. ATAP LANTAI 1 / PLAFON (Dengan Void Tangga)
     // =========================================================
-    // 6. ATAP LANTAI 1 / PLAFON
-    // =========================================================
-    // Berfungsi sebagai plafon untuk Lantai 1, sekaligus menjadi pijakan untuk Lantai 2 nanti
+    // Bagian Kanan (Menutup area utama hingga batas void)
+    // Lebar 10.5 (X: -4.5 sampai 6.0), Kedalaman utuh 10.0 (Z: -5.0 sampai 5.0)
     drawBlock(-0.75f, wallHeight, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 }
 
@@ -287,21 +289,32 @@ void Gedung::drawLantai2() {
     // Warna dinding Lantai 2 (Putih bersih sesuai referensi)
     float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
 
+// =========================================================
+    // 1. LANTAI / PIJAKAN LANTAI 2 (Menjorok ke Z = 8.0)
     // =========================================================
-    // 1. LANTAI / PIJAKAN LANTAI 2 (Menopang Overhang)
-    // =========================================================
-    drawBlock(-0.75f, startY - 0.05f, 0.5f, 13.5f, 0.1f, 11.0f, 0.7f, 0.7f, 0.7f);
+    // Sisi Kanan (Area utuh, menjorok ke depan menutupi teras)
+    // Kedalaman 13.0 (Z: -5.0 sampai 8.0 -> Center = 1.5)
+    drawBlock(0.75f, startY - 0.05f, 1.5f, 10.5f, 0.1f, 13.0f, 0.7f, 0.7f, 0.7f);
+    
+    // Sisi Kiri Dalam (Lantai interior di atas ruang utama L1)
+    // Kedalaman 10.0 (Z: -5.0 sampai 5.0 -> Center = 0.0)
+    drawBlock(-6.0f, startY - 0.05f, 0.0f, 3.0f, 0.1f, 10.0f, 0.7f, 0.7f, 0.7f);
+    
+    // Area Z=5.0 hingga Z=7.0 dibiarkan KOSONG sebagai void tangga
+
+    // Sisi Kiri Depan (Pijakan Balkon di depan void tangga)
+    // Kedalaman 1.0 (Z: 7.0 sampai 8.0 -> Center = 7.5)
+    drawBlock(-6.0f, startY - 0.05f, 7.5f, 3.0f, 0.1f, 1.0f, 0.7f, 0.7f, 0.7f);
 
     // =========================================================
     // 2. DINDING BELAKANG, KIRI, & KANAN
     // =========================================================
-    // Dinding Belakang
     drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
 
-    // Dinding Kiri 
-    drawBlock(-7.5f, startY, 0.5f, wallThickness, wallHeight, 11.0f, wallRed, wallGreen, wallBlue);
+    // Dinding Kiri (Dimajukan sampai overhang Z=8.0 -> Kedalaman 13.0, Center = 1.5)
+    drawBlock(-7.5f, startY, 1.5f, wallThickness, wallHeight, 13.0f, wallRed, wallGreen, wallBlue);
 
-    // Dinding Kanan
+    // Dinding Kanan 
     drawBlock(6.0f, startY, -0.75f, wallThickness, wallHeight, 8.5f, wallRed, wallGreen, wallBlue);
 
     // =========================================================
@@ -313,16 +326,20 @@ void Gedung::drawLantai2() {
     // =========================================================
     // 4. DINDING DEPAN (OVERHANG & BALKON BESAR)
     // =========================================================
-    drawWallWithHole(-7.5f, startY, 6.0f, 11.0f, wallHeight, wallThickness,
-                     1.0f, 0.5f, 6.0f, 2.5f, // Lubang jendela selebar 6.0
+    // Dinding balkon ditarik maju ke Z = 8.0
+    drawWallWithHole(-7.5f, startY, 8.0f, 11.0f, wallHeight, wallThickness,
+                     1.0f, 0.5f, 6.0f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
                      
-    drawBlock(-3.5f, startY + 0.5f, 6.0f, 0.5f, 2.5f, wallThickness, wallRed, wallGreen, wallBlue);
+    // Tiang pemisah (Mullion) di Z = 8.0
+    drawBlock(-3.5f, startY + 0.5f, 8.0f, 0.5f, 2.5f, wallThickness, wallRed, wallGreen, wallBlue);
 
     // =========================================================
     // 5. ATAP LANTAI 2 / PLAFON
     // =========================================================
-    drawBlock(-0.75f, startY + wallHeight, 0.5f, 13.5f, 0.5f, 11.0f, 0.8f, 0.8f, 0.8f);
+    drawBlock(0.75f, startY + wallHeight, 1.5f, 10.5f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
+    drawBlock(-6.0f, startY + wallHeight, 1.5f, 3.0f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
+    
 }
 
 
@@ -338,5 +355,6 @@ void Gedung::drawAll() {
     drawLantai1();
     drawLantai2(); 
     drawFurnitureLantai1();    
+    tangga.draw(-6.0f, 0.0f, 6.0f);
     glPopMatrix();
 }
