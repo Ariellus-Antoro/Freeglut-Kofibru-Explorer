@@ -270,7 +270,8 @@ void Gedung::drawFurnitureLantai1(){
     //menu
     glPushMatrix();
 
-    glTranslatef(-2.5f, 1.2f, 2.0f);
+    glTranslatef(0.3f, 0.9f, -2.6f); // Di atas meja kasir
+    glScalef(0.3f,0.3f,0.3f);
 
     menu.draw();
 
