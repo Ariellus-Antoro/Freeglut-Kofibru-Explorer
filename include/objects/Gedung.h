@@ -102,6 +102,17 @@ private:
                            float holeZ, float holeY, float holeDepth, float holeHeight, 
                            float colorRed, float colorGreen, float colorBlue);
 
+    /**
+     * @brief Menggambar lantai dengan pola kotak-kotak (checkerboard) untuk interior gedung.
+     * @param startX Batas awal sumbu X.
+     * @param startZ Batas awal sumbu Z.
+     * @param endX Batas akhir sumbu X.
+     * @param endZ Batas akhir sumbu Z.
+     * @param posY Ketinggian/elevasi lantai pada sumbu Y.
+     * @param tileSize Ukuran satu kotak keramik.
+     */
+    void drawKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize);
+
     // =========================================================================
     // FLOOR ASSEMBLY
     // =========================================================================
