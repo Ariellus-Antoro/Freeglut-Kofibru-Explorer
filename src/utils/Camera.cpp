@@ -8,7 +8,7 @@ const float PI = 3.14159265f;
 // Konstruktor Camera.
 // Menginisialisasi posisi awal kamera
 Camera::Camera() {
-    eyeX = 0.0f; eyeY = 1.5f; eyeZ = 5.0f; 
+    eyeX = 0.0f; eyeY = 2.5f; eyeZ = 5.0f; 
     upX = 0.0f; upY = 1.0f; upZ = 0.0f;
     
     yaw = -90.0f; 
