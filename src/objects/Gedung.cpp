@@ -6,6 +6,7 @@
 #include "objects/mejakecil.h"
 #include "objects/gelas.h"
 #include "objects/ac.h"
+#include "objects/cctv.h"
 #include "utils/Helper.h"
 
 #include <math.h>
@@ -293,15 +294,13 @@ void Gedung::drawFurnitureLantai1(){
     ac.draw();
     glPopMatrix();
 
-    // // =====================
-    // // CCTV (menempel plafon, di sebelah AC)
-    // // =====================
-    // glPushMatrix();
-    // glTranslatef(-2.5f, 3.2f, 0.2f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
-    // glScalef(0.02f, 0.02f, 0.02f);
-    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    // cctv.draw();
-    // glPopMatrix();
+    // CCTV (menempel plafon, di sebelah AC)
+    glPushMatrix();
+    glTranslatef(1.5f, 3.4f, -4.6f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
+    glScalef(0.03f, 0.03f, 0.03f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    cctv.draw();
+    glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
