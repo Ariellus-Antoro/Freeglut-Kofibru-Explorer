@@ -4,10 +4,12 @@
 #include "core/Keyboard.h"
 #include "core/Mouse.h"
 #include "objects/Gedung.h"
+#include "objects/rumah.h"
 // Inisialisasi Objek Kamera secara Global
 Camera playerCamera;
 
 Gedung kofibruBuilding;
+Rumah rumahLuar;
 
 // Mengatur proyeksi 3D saat ukuran jendela berubah dengan menyesuaikan rasio
 void reshape(int w, int h) {
@@ -37,6 +39,7 @@ void display() {
     playerCamera.applyCamera();
 
     kofibruBuilding.drawAll();
+    rumahLuar.drawAll();
 
     glutSwapBuffers();
 }
