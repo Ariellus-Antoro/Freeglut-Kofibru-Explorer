@@ -4,25 +4,22 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active project",
-            "command": "g++",
+            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                // Mengambil semua file .cpp di dalam folder src
                 "${workspaceFolder}/src/*.cpp",
                 "${workspaceFolder}/src/core/*.cpp",
                 "${workspaceFolder}/src/utils/*.cpp",
-
-                //Uncomment ini misalkan mau menambahkan codingan object
                 "${workspaceFolder}/src/objects/*.cpp",
                 "-o",
-                // Mengarahkan hasil compile (exe) ke folder bin
                 "${workspaceFolder}/bin/main.exe",
-                
-                // Path relatif ke folder include dan lib di dalam project
+
                 "-I${workspaceFolder}/include",
-                "-L${workspaceFolder}/lib", 
-                
+                "-IC:\\msys64\\mingw64\\include",
+                "-L${workspaceFolder}/lib",
+                "-LC:\\msys64\\mingw64\\lib",
+
                 "-lfreeglut",
                 "-lopengl32",
                 "-lglu32",
