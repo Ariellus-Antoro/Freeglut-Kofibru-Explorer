@@ -7,6 +7,7 @@
 #include "objects/gelas.h"
 #include "objects/ac.h"
 #include "objects/cctv.h"
+#include "objects/lampu.h"
 #include "objects/kursi.h"
 #include "objects/mejalt2.h"
 #include "objects/mejakotak.h"
@@ -217,9 +218,20 @@ void Gedung::drawFurnitureLantai1(){
     glTranslatef(0.3f, 0.9f, -2.6f); // Di atas meja kasir
     glScalef(0.3f,0.3f,0.3f);
 
-    menu.draw();
+    menu.draw(); 
 
     glPopMatrix();
+
+    // Di atas meja kasir
+    glPushMatrix();
+
+    glTranslatef(1.2f, 0.8f, -3.1f); 
+    glScalef(0.02f,0.02f,0.02f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f); 
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    kasirUang.draw();
+    glPopMatrix();
+
     // Rak Atas
     glPushMatrix();
 
@@ -287,8 +299,9 @@ void Gedung::drawFurnitureLantai1(){
 
     // botol sirup (sebelahan dengan gelas, di atas meja kasir yang sama)
     glPushMatrix();
-    glTranslatef(-6.35f, 0.6f, 3.5f);   // digeser sedikit di X supaya sebelahan, bukan menumpuk, dengan gelas
-    glScalef(0.01f, 0.01f, 0.01f);       // mesh asli satuan cm; botol lebih tinggi dari gelas
+    glTranslatef(-1.0f, 0.82f, -3.0f);   // digeser sedikit di X supaya sebelahan, bukan menumpuk, dengan gelas
+    glScalef(0.02f, 0.02f, 0.02f);       // mesh asli satuan cm; botol lebih tinggi dari gelas
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // tegakkan model (Z-up mesh -> Y-up)
     botolSirup.draw();
     glPopMatrix();
@@ -329,7 +342,7 @@ void Gedung::drawFurnitureLantai1(){
 
     //ac
     glPushMatrix();
-    glTranslatef(-2.0f, 3.5f, -4.4f);   // Y mendekati wallHeight (3.5f), X/Z geser sesuai dinding yang dituju
+    glTranslatef(-2.0f, 3.4f, -4.4f);  
     glScalef(0.02f, 0.01f, 0.01f);
     glRotatef(-180.0f, 1.0f, 0.0f, 0.0f);
     ac.draw();
@@ -337,11 +350,19 @@ void Gedung::drawFurnitureLantai1(){
 
     // CCTV (menempel plafon, di sebelah AC)
     glPushMatrix();
-    glTranslatef(1.5f, 3.4f, -4.6f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
+    glTranslatef(1.5f, 3.3f, -4.6f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
     glScalef(0.03f, 0.03f, 0.03f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     cctv.draw();
     glPopMatrix();
+
+    // lampu
+    glPushMatrix();
+    glTranslatef(-2.5f, 3.40f, 0.0f);
+    lampu.draw();
+    glPopMatrix();
+
+
 }
 
 void Gedung::drawLantai2() {
@@ -743,8 +764,8 @@ void Gedung::drawFurnitureLantai2(){
 
     // CCTV (menempel plafon, di sebelah AC)
     glPushMatrix();
-    glTranslatef(1.5f, 7.4f, -2.52f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
-    glScalef(0.03f, 0.03f, 0.03f);
+    glTranslatef(2.7f, 7.4f, -2.52f);   // sama Y & Z dengan AC, X digeser supaya di sebelahnya
+    glScalef(-0.03f, 0.03f, 0.03f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     cctv.draw();
     glPopMatrix();
@@ -778,6 +799,12 @@ void Gedung::drawFurnitureLantai2(){
     glTranslatef(0.5f, 3.9f, 6.5f);  
     glScalef(0.02f, 0.01f, 0.02f);
     mejaKecil.draw();
+    glPopMatrix();
+
+    //lammpu
+    glPushMatrix();
+    glTranslatef(-1.0f, 7.30f, 0.0f);
+    lampu.draw();
     glPopMatrix();
 }
 
@@ -1270,6 +1297,19 @@ void Gedung::drawFurnitureLantai3(){
     glRotatef(-40.0f, 0.0f, 1.0f, 0.0f);
     glScalef(0.1f, 0.1f, 0.1f);
     chair.draw();
+    glPopMatrix();
+
+    //lampu
+    glPushMatrix();
+    glTranslatef(-0.4f, 11.30f, -0.8f);
+    lampu.draw();
+    glPopMatrix();
+
+    //lampu downlight
+    glPushMatrix();
+    glTranslatef(1.6f, 11.35f, -0.8f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
     glPopMatrix();
 }
 void Gedung::drawAll() {
