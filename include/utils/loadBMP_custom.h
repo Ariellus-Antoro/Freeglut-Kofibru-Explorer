@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <GL/freeglut.h>
 
-GLuint loadBMP_custom(const char* imagepath) {
+
+//inline punya samuel
+inline GLuint loadBMP_custom(const char* imagepath) {
     unsigned char header[54];
     unsigned int dataPos;
     unsigned int width, height;

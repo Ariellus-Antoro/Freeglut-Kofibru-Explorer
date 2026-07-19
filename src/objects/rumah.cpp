@@ -5,7 +5,8 @@
 #include "objects/Pembatas.h"
 #include "objects/Rumput.h"
 #include "objects/Jalan.h"
-
+#include "objects/Baliho.h"
+#include "objects/TerasDepan.h"
 
 Pembatas pembatasDepan;
 Pembatas pembatasSamping;
@@ -17,6 +18,8 @@ Rumput rumputKecil;
 Kofibru logoKofibruKedua;
 Jalan jalanDepan;
 Jalan jalanSamping;
+Baliho balihoDepan;
+TerasDepan batasTeras;
 
 Rumah::Rumah()
 {
@@ -128,7 +131,7 @@ void Rumah::drawAll()
 
     // Di bagian constructor atau fungsi setup
     rumputSerong.posX = 4.1f;
-    rumputSerong.posY = 0.9f; 
+    rumputSerong.posY = 0.9f;
     rumputSerong.posZ = 4.1f;
     rumputSerong.rotationY = 45.0f; // Bisa dirotasi sesuai pembatasnya
     rumputSerong.height = 0.7f;     // Bisa diatur beda tiap objek
@@ -136,46 +139,57 @@ void Rumah::drawAll()
     rumputSerong.thickness = 0.2f;
 
     rumputKecil.posX = 7.5f;
-    rumputKecil.posY = 0.9f; 
+    rumputKecil.posY = 0.9f;
     rumputKecil.posZ = 5.15f;
     rumputKecil.rotationY = 90.0f; // Bisa dirotasi sesuai pembatasnya
     rumputKecil.height = 0.7f;     // Bisa diatur beda tiap objeK
     rumputKecil.length = 4.4f;
     rumputKecil.thickness = 0.2f;
 
-    //logo kedua
+    // logo kedua
     logoKofibruKedua.drawDots = false;
-    logoKofibruKedua.posX = -3.6f;    // ganti sesuai posisi dinding target
+    logoKofibruKedua.posX = -3.6f; // ganti sesuai posisi dinding target
     logoKofibruKedua.posY = 3.0f;
-    logoKofibruKedua.posZ = 7.9f;    // ganti sesuai posisi dinding target
+    logoKofibruKedua.posZ = 7.9f;      // ganti sesuai posisi dinding target
     logoKofibruKedua.rotationY = 0.0f; // ganti sesuai arah hadap dinding
     logoKofibruKedua.targetHeight = 0.09f;
     logoKofibruKedua.letterSpacing = 0.05f;
     logoKofibruKedua.isBold = true;
 
-    jalanDepan.posX = 5.0f;     // Geser titik tengah jalan ke kiri (X = -10)
-    jalanDepan.posY = 0.0f;      // Agak naik sedikit agar tidak nabrak tanah
-    jalanDepan.posZ = 18.0f;     // Posisi kedalaman (sesuaikan dengan jarak depan rumah)
-    jalanDepan.rotationY = 0.0f;  
-    
+    jalanDepan.posX = 5.0f;  // Geser titik tengah jalan ke kiri (X = -10)
+    jalanDepan.posY = 0.0f;  // Agak naik sedikit agar tidak nabrak tanah
+    jalanDepan.posZ = 18.0f; // Posisi kedalaman (sesuaikan dengan jarak depan rumah)
+    jalanDepan.rotationY = 0.0f;
+
     // Jalan
-    jalanDepan.width = 52.0f;     //  panjang dari kiri ke kanan
-    jalanDepan.height = 0.1f;     // Ketebalan aspal (biar tipis)
-    jalanDepan.length = 10.0f;  //lebar
+    jalanDepan.width = 52.0f;  //  panjang dari kiri ke kanan
+    jalanDepan.height = 0.1f;  // Ketebalan aspal (biar tipis)
+    jalanDepan.length = 10.0f; // lebar
 
+    // Jalan samping
+    jalanSamping.posX = 15.5f; // Geser posisinya ke arah kiri (bisa disesuaikan, misalnya di antara ruko dan rumah)
+    jalanSamping.posY = 0.0f;  // Tinggi sama dengan jalan depan biar tidak tumpang tindih aneh
+    jalanSamping.posZ = -5.0f; // Memanjang ke area belakang scene
+    jalanSamping.rotationY = 0.0f;
 
-
-
-    //Jalan samping
-    jalanSamping.posX = 15.5f;    // Geser posisinya ke arah kiri (bisa disesuaikan, misalnya di antara ruko dan rumah)
-    jalanSamping.posY = 0.0f;     // Tinggi sama dengan jalan depan biar tidak tumpang tindih aneh
-    jalanSamping.posZ = -5.0f;      // Memanjang ke area belakang scene
-    jalanSamping.rotationY = 0.0f; 
-    
     // Dimensinya dibalik dari jalan utama
-    jalanSamping.width = 10.0f;     // lebar kanan kiri jalan
-    jalanSamping.height = 0.1f;    // Ketebalan tetap tipis
-    jalanSamping.length = 50.0f; //panjang depan belakang
+    jalanSamping.width = 10.0f;  // lebar kanan kiri jalan
+    jalanSamping.height = 0.1f;  // Ketebalan tetap tipis
+    jalanSamping.length = 50.0f; // panjang depan belakang
+
+    // baliho
+    balihoDepan.posX = 21.1f;
+    balihoDepan.posY = 0.0f;
+    balihoDepan.posZ = 10.0f;
+    balihoDepan.width = 3.0f;
+    balihoDepan.height = 2.0f;
+
+    // Batas teras yang diluar
+    batasTeras.posX = -3.0f;
+    batasTeras.posY = 0.0f;
+    batasTeras.posZ = 7.0f;
+    batasTeras.rotationY = -90.0f;
+ // ganti sesuai ukuran yang kamu mau
 
     // =====================
     // Pembatas jalur (eksterior)
@@ -189,6 +203,8 @@ void Rumah::drawAll()
     logoKofibruKedua.drawAll();
     jalanDepan.drawAll();
     jalanSamping.drawAll();
+    balihoDepan.drawAll();
+    batasTeras.drawAll();
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)
     // =====================
