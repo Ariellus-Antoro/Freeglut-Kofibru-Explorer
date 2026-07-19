@@ -16,9 +16,9 @@ private:
 
     void setupFloor1Light();
 
-    // void setupFloor2Light();
+    void setupFloor2Light();
 
-    // void setupFloor3Light();
+    void setupFloor3Light(); 
 };
 
 #endif
