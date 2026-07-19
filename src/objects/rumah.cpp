@@ -1,6 +1,13 @@
 #include <GL/freeglut.h>
 #include "objects/rumah.h"
 #include "objects/rumah_data.h"
+#include "objects/Kofibru.h"
+#include "objects/Pembatas.h"
+
+Pembatas pembatasDepan;
+Pembatas pembatasSamping;
+Pembatas pembatasSerong;
+Kofibru logoKofibru;
 
 Rumah::Rumah() {
     // Atap -- coklat gelap
@@ -22,6 +29,9 @@ Rumah::Rumah() {
     jendelaRed = 0.25f;
     jendelaGreen = 0.5f;
     jendelaBlue = 0.85f;
+
+    
+
 }
 
 static void drawFaces(const RumahFace* facesArr, int count) {
@@ -70,6 +80,39 @@ void Rumah::drawAll() {
     draw();
 
     glPopMatrix();
+
+    logoKofibru.drawAll();
+
+    pembatasDepan.posX = 9.7f;
+    pembatasDepan.posY = 0.0f;
+    pembatasDepan.posZ = -7.7f;
+    pembatasDepan.rotationY = 0.0f;
+    pembatasDepan.length = 13.0f;
+    pembatasDepan.height = 0.9f;
+    pembatasDepan.thickness = 0.5f;
+
+    pembatasSamping.posX = 5.0f;
+    pembatasSamping.posY = 0.0f;
+    pembatasSamping.posZ = 5.1f;
+    pembatasSamping.rotationY = 90.0f;
+    pembatasSamping.length = 4.9f;
+    pembatasSamping.height = 0.9f;
+    pembatasSamping.thickness = 0.5f;
+
+    pembatasSerong.posX = 3.0f;
+    pembatasSerong.posY = 0.0f;
+    pembatasSerong.posZ = 3.0f;
+    pembatasSerong.rotationY = 45.0f;
+    pembatasSerong.length = 3.0f;
+    pembatasSerong.height = 0.9f;
+    pembatasSerong.thickness = 0.5f;
+
+    // =====================
+    // Pembatas jalur (eksterior)
+    // =====================
+    pembatasDepan.drawAll();
+    pembatasSamping.drawAll();
+    pembatasSerong.drawAll();
 
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)

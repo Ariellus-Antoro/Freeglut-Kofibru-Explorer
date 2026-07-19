@@ -6,6 +6,15 @@
 #include "objects/mejakecil.h"
 #include "objects/gelas.h"
 #include "utils/Helper.h"
+#include "objects/Wastafel.h"
+#include "objects/Toilet.h"
+#include "objects/MesinKopi.h"
+#include "objects/TabungKopi.h"
+
+MesinKopi mesinKopi;
+TabungKopi tabungkopi;
+Wastafel wastafel;
+Toilet toilet;
 
 #include <math.h>
 
@@ -520,5 +529,9 @@ void Gedung::drawAll() {
     drawFurnitureLantai1();    
     tangga.draw(-6.0f, 0.0f, 6.0f);
     tangga.draw(-6.0f, 4.0f, 6.0f);
+    wastafel.drawAll();
+    toilet.drawAll();
+    mesinKopi.drawAll();
+    tabungkopi.drawAll();
     glPopMatrix();
 }
