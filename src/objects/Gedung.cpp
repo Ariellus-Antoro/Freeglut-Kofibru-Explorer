@@ -7,6 +7,10 @@
 #include "objects/gelas.h"
 #include "objects/ac.h"
 #include "objects/cctv.h"
+#include "objects/kursi.h"
+#include "objects/mejalt2.h"
+
+
 #include "utils/Helper.h"
 
 #include <math.h>
@@ -443,6 +447,198 @@ void Gedung::drawLantai2() {
     
 }
 
+void Gedung::drawFurnitureLantai2(){
+
+    // =====================
+    // Meja 1 
+    // =====================
+    glPushMatrix();
+    glTranslatef(-3.5f, 3.9f, -1.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
+    glScalef(0.01f, 0.01f, 0.01f);      // mesh asli satuan cm
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    mejaLt2.draw();
+    glPopMatrix();
+
+    // Kursi 1 (Meja 1) - sisi kiri, depan - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-4.7f, 3.9f, -2.2f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 2 (Meja 1) - sisi kiri, belakang - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-4.7f, 3.9f, -1.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 3 (Meja 1) - sisi kanan, depan - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-2.9f, 3.9f, -2.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 4 (Meja 1) - sisi kanan, belakang - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-2.9f, 3.9f, -2.0f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+
+    // =====================
+    // Meja 2
+    // =====================
+    glPushMatrix();
+    glTranslatef(-0.8f, 3.9f, -1.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
+    glScalef(0.01f, 0.01f, 0.01f);      // mesh asli satuan cm
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    mejaLt2.draw();
+    glPopMatrix();
+
+    // Kursi 1 (Meja 1) - sisi kiri, depan - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-2.0f, 3.9f, -2.2f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 2 (Meja 1) - sisi kiri, belakang - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-2.0f, 3.9f, -1.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 3 (Meja 1) - sisi kanan, depan - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-0.2f, 3.9f, -2.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 4 (Meja 1) - sisi kanan, belakang - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-0.2f, 3.9f, -2.0f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // =====================
+    // Meja 3
+    // =====================
+    glPushMatrix();
+    glTranslatef(1.9f, 3.9f, -1.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
+    glScalef(0.01f, 0.01f, 0.01f);      // mesh asli satuan cm
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    mejaLt2.draw();
+    glPopMatrix();
+
+    // Kursi 1 (Meja 1) - sisi kiri, depan - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(0.7f, 3.9f, -2.2f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 2 (Meja 1) - sisi kiri, belakang - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(0.7f, 3.9f, -1.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 3 (Meja 1) - sisi kanan, depan - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(2.5f, 3.9f, -2.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 4 (Meja 1) - sisi kanan, belakang - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(2.5f, 3.9f, -2.0f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // =====================
+    // Meja 4 
+    // =====================
+    glPushMatrix();
+    glTranslatef(-3.5f, 3.9f, 1.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
+    glScalef(0.01f, 0.01f, 0.01f);      // mesh asli satuan cm
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    mejaLt2.draw();
+    glPopMatrix();
+
+    // Kursi 1 (Meja 1) - sisi kiri, depan - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-4.7f, 3.9f, 0.5f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 2 (Meja 1) - sisi kiri, belakang - menghadap ke meja (arah +X)
+    glPushMatrix();
+    glTranslatef(-4.7f, 3.9f, 1.0f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 3 (Meja 1) - sisi kanan, depan - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-2.9f, 3.9f, 0.6f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+
+    // Kursi 4 (Meja 1) - sisi kanan, belakang - menghadap ke meja (arah -X)
+    glPushMatrix();
+    glTranslatef(-2.9f, 3.9f, 0.0f);
+    glScalef(0.01f, 0.01f, 0.01f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    chair2.draw();
+    glPopMatrix();
+}
+
 
 void Gedung::drawLantai3() {
     float startY = 8.0f; 
@@ -612,6 +808,7 @@ void Gedung::drawAll() {
     drawLantai2(); 
     drawLantai3();
     drawFurnitureLantai1();    
+    drawFurnitureLantai2();    
     tangga.draw(-6.0f, 0.0f, 6.0f);
     tangga.draw(-6.0f, 4.0f, 6.0f);
     glPopMatrix();
