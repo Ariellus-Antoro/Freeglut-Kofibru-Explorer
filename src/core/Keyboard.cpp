@@ -10,6 +10,7 @@ extern Camera playerCamera;
 void handleKeyboard(unsigned char key, int x, int y) {
     // Menentukan kecepatan pergerakan kamera.
     float speed = 0.5f;
+    const float eyeHeight = 2.5f;
     // Memeriksa tombol keyboard yang ditekan.
     switch (key) {
 
@@ -34,13 +35,13 @@ void handleKeyboard(unsigned char key, int x, int y) {
             break;
 
         case '1':
-            playerCamera.eyeY = 1.5f; // Elevasi mata normal di Lantai 1
+            playerCamera.eyeY = 0.0f + eyeHeight; 
             break;
         case '2':
-            playerCamera.eyeY = 8.0f; // Elevasi Lantai 2
+            playerCamera.eyeY = 8.0f; + eyeHeight;
             break;
         case '3':
-            playerCamera.eyeY = 14.0f; 
+            playerCamera.eyeY = 12.0f + eyeHeight; 
             break;
 
         // ESC untuk exit
