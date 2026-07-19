@@ -3,10 +3,10 @@
 #include "objects/ac_data.h"
 
 AC::AC() {
-    // Warna default body AC (putih). Ubah di sini kalau mau warna lain.
-    colorRed = 0.95f;
-    colorGreen = 0.95f;
-    colorBlue = 0.95f;
+    // Warna body AC: merah gelap
+    colorRed = 0.55f;
+    colorGreen = 0.0f;
+    colorBlue = 0.0f;
 }
 
 void AC::draw() {

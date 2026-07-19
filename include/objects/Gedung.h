@@ -14,6 +14,9 @@
 #include "objects/gelas.h"
 #include "objects/ac.h"
 #include "objects/cctv.h"
+#include "objects/kursi.h"
+#include "objects/mejalt2.h"
+#include "objects/mejakotak.h"
 
 
 
@@ -47,6 +50,10 @@ private:
     Gelas gelas;
     AC ac;
     CCTV cctv;
+    MejaLt2 mejaLt2;
+    Kursi chair2;
+    MejaKotak mejaKotak;
+
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 
@@ -85,6 +92,8 @@ private:
      * @brief Merakit dan menggambar seluruh furniture pada Lantai 1 seperti meja, kursi, dan dekorasi.
      */
      void drawFurnitureLantai1();
+     void drawFurnitureLantai2();
+     void drawFurnitureLantai3();
 };
 
 #endif
