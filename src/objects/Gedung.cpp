@@ -22,18 +22,6 @@
 #include "objects/Orang.h"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #include "objects/BoxKopi.h"
 #include "objects/GelasBox.h"
 
@@ -429,36 +417,6 @@ void Gedung::drawFurnitureLantai1(){
     glTranslatef(-2.5f, 3.40f, 0.0f);
     lampu.draw();
     glPopMatrix();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //mesin kopi kotak ne
