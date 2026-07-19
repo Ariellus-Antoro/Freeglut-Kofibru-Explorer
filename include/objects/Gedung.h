@@ -17,6 +17,7 @@
 #include "objects/kursi.h"
 #include "objects/mejalt2.h"
 #include "objects/mejakotak.h"
+#include "objects/botolsirup.h"
 
 
 
@@ -53,6 +54,7 @@ private:
     MejaLt2 mejaLt2;
     Kursi chair2;
     MejaKotak mejaKotak;
+    BotolSirup botolSirup;
 
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)

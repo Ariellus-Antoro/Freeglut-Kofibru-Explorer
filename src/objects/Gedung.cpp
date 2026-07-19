@@ -10,6 +10,7 @@
 #include "objects/kursi.h"
 #include "objects/mejalt2.h"
 #include "objects/mejakotak.h"
+#include "objects/botolsirup.h"
 
 
 #include "utils/Helper.h"
@@ -271,6 +272,14 @@ void Gedung::drawFurnitureLantai1(){
     glScalef(0.03f, 0.03f, 0.03f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // tegakkan model
     gelas.draw();
+    glPopMatrix();
+
+    // botol sirup (sebelahan dengan gelas, di atas meja kasir yang sama)
+    glPushMatrix();
+    glTranslatef(-6.35f, 0.6f, 3.5f);   // digeser sedikit di X supaya sebelahan, bukan menumpuk, dengan gelas
+    glScalef(0.01f, 0.01f, 0.01f);       // mesh asli satuan cm; botol lebih tinggi dari gelas
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // tegakkan model (Z-up mesh -> Y-up)
+    botolSirup.draw();
     glPopMatrix();
 
     //sofa 2
