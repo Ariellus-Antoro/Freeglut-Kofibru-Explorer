@@ -5,10 +5,7 @@
 #include "objects/Pembatas.h"
 #include "objects/Rumput.h"
 #include "objects/Jalan.h"
-<<<<<<< HEAD
-=======
 #include "objects/prayogo.h"
->>>>>>> main
 
 
 Pembatas pembatasDepan;
@@ -21,10 +18,7 @@ Rumput rumputKecil;
 Kofibru logoKofibruKedua;
 Jalan jalanDepan;
 Jalan jalanSamping;
-<<<<<<< HEAD
-=======
 Prayogo prayogo;
->>>>>>> main
 
 Rumah::Rumah()
 {
