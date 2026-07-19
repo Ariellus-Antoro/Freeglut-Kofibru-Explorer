@@ -100,4 +100,14 @@
                                         float wallDepth, float wallHeight, float wallThickness, 
                                         float holeZ, float holeY, float holeDepth, float holeHeight, 
                                         GLuint textureID, bool facingRight);
+
+    void drawCeilingWithHole(float startX, float startZ, float endX, float endZ, 
+                         float posY, float thickness, float r, float g, float b,
+                         float holeStartX, float holeStartZ, float holeEndX, float holeEndZ);
+
+    void drawTexturedKeramikWithHole(float startX, float startZ, float endX, float endZ, 
+                                 float posY, float tileSize, GLuint textureID,
+                                 float holeStartX, float holeStartZ, float holeEndX, float holeEndZ);
+
+    void drawGlassPanel(float x, float y, float z, float width, float height, float depth, float r, float g, float b, float alpha);
 #endif

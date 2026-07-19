@@ -151,21 +151,70 @@ void Gedung::drawLantai1() {
 
     // Pembatas dekat meja kasir
     float depthPartisiDepan = 0.3f;
-    drawBlock(boothX, startY, 2.5f, protrusion, wallHeight, depthPartisiDepan, greyColor, greyColor, greyColor);
+    drawBlock(boothX, startY, 2.5f, protrusion, wallHeight, depthPartisiDepan,wallRed,wallGreen,wallBlue);
 
-    // Tebal & Berwarna Putih
-    float depthPilarTengah = 1.2f;
-    drawBlock(boothX, startY, 0.0f, protrusion, wallHeight, depthPilarTengah, whiteColor, whiteColor, whiteColor);
-
-    // Menempel ke sudut belakang
-    float depthPartisiBelakang = 1.5f;
-    float zPartisiBelakang = -4.75f + (depthPartisiBelakang / 2.0f);  
-    drawBlock(boothX, startY, zPartisiBelakang, protrusion, wallHeight, depthPartisiBelakang, greyColor, greyColor, greyColor);
+    // 2. Pilar Putih Memanjang (Diperpanjang sampai mentok dinding belakang)
+    float depthPilarTengah = 5.35f;
+    float zPilarTengah = -2.075f; 
+    drawBlock(boothX, startY, zPilarTengah, protrusion, wallHeight, depthPilarTengah, wallRed,wallGreen,wallBlue);
 
     // =========================================================
     // 6. ATAP LANTAI 1 / PLAFON 
     // =========================================================
     drawBlock(-0.75f, wallHeight-0.09f, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
+
+    // =========================================================
+    // 7. PINTU KACA (TRANSPARAN)
+    // =========================================================
+    float glassR = 0.82f, glassG = 0.84f, glassB = 0.86f;
+    float alphaKaca = 0.35f;
+    float kacaThick = 0.1f; 
+    float doorHeight = 2.5f; // Sesuai dengan tinggi lubang pintu (holeH)
+
+
+    // Pintu Kiri (Tertutup)
+    glPushMatrix();
+    glTranslatef(-1.5f, startY, 2.0f);   
+    drawBlock(0.75f, 0.0f, 0.0f, 1.5f, doorHeight, kacaThick, glassR, glassG, glassB, alphaKaca);
+    glPopMatrix();
+
+    // Pintu Kanan (Buka 30 derajat ke dalam)
+    glPushMatrix();
+    glTranslatef(1.5f, startY, 2.0f);    // Posisikan engsel di ujung kanan lubang
+    glRotatef(30.0f, 0.0f, 1.0f, 0.0f);  // Putar ke dalam ruangan
+    drawBlock(-0.75f, 0.0f, 0.0f, 1.5f, doorHeight, kacaThick, glassR, glassG, glassB, alphaKaca);
+    glPopMatrix();
+
+    // ---------------------------------------------------------
+    // B. PINTU KACA Fasad Paling Depan (Lebar 1.2f)
+    // ---------------------------------------------------------
+    // Posisi X awal = -3.1f. Kita letakkan engsel di sisi kiri (X = -3.7f)
+    glPushMatrix();
+    glTranslatef(-3.7f, startY, 5.0f);
+    glRotatef(-30.0f, 0.0f, 1.0f, 0.0f); // Putar terbuka ke dalam 30 derajat
+    drawBlock(0.6f, 0.0f, 0.0f, 1.2f, doorHeight, kacaThick, glassR, glassG, glassB, alphaKaca);
+    glPopMatrix();
+
+    // ---------------------------------------------------------
+    // C. PINTU KACA Sekat Internal / Dekat Tangga (Lebar 1.5f)
+    // ---------------------------------------------------------
+    // Dinding di Sumbu Z. Titik Z awal = 0.25f. Engsel di belakang (Z = -0.5f)
+    glPushMatrix();
+    glTranslatef(2.0f, startY, -0.5f);
+    glRotatef(30.0f, 0.0f, 1.0f, 0.0f);  // Putar terbuka 30 derajat
+    // Karena ini sumbu Z, titik offset-nya ada di parameter ketiga (Z)
+    drawBlock(0.0f, 0.0f, 0.75f, kacaThick, doorHeight, 1.5f, glassR, glassG, glassB, alphaKaca);
+    glPopMatrix();
+
+    // ---------------------------------------------------------
+    // D. PINTU KACA Lorong Toilet (Lebar 1.5f)
+    // ---------------------------------------------------------
+    // Posisi X awal = 2.95f. Engsel di sisi kiri (X = 2.2f)
+    glPushMatrix();
+    glTranslatef(2.2f, startY, -1.0f);
+    glRotatef(-30.0f, 0.0f, 1.0f, 0.0f); // Putar terbuka ke dalam arah toilet
+    drawBlock(0.75f, 0.0f, 0.0f, 1.5f, doorHeight, kacaThick, glassR, glassG, glassB, alphaKaca);
+    glPopMatrix();
 }
 
 void Gedung::drawFurnitureLantai1(){
@@ -345,47 +394,61 @@ void Gedung::drawFurnitureLantai1(){
 }
 
 void Gedung::drawLantai2() {
+
+    float stairMinX = -7.5f;
+    float stairMaxX = -4.5f;
+
+    float stairMinZ = 4.5f;
+    float stairMaxZ = 8.0f;
     // Elevasi lantai 2
     float startY = 4.0f; 
     float wallHeight = 3.5f; 
     float wallThickness = 0.5f; 
+
+    float glassR = 0.78f;
+    float glassG = 0.84f;
+    float glassB = 0.90f;
+    float alphaKaca = 0.35f;
+
+    float pagarHeight = 1.2f;
+    float pagarThickness = 0.08f;
     
     float wallRed = 0.88f, wallGreen = 0.88f, wallBlue = 0.88f;
 
-// =========================================================
-// LANTAI BERTEKSTUR
-// =========================================================
+    // =========================================================
+    // LANTAI
+    // =========================================================
 
-float posY = startY - 0.05f;
-float tileSize = 1.2f;
+    float posY = startY - 0.05f;
+    float tileSize = 1.2f;
 
-// Area utama
-drawTexturedKeramik(-4.5f, -5.0f, 6.0f, 6.0f,
-                    posY, tileSize, floorTexture);
+    // Area utama
+    drawTexturedKeramik(-4.5f, -5.0f, 6.0f, 6.0f,
+                        posY, tileSize, floorTexture);
 
-// Balkon
-drawTexturedKeramik(-4.5f, 6.0f, 3.5f, 8.0f,
-                    posY, tileSize, floorTexture);
+    // Balkon
+    drawTexturedKeramik(-4.5f, 6.0f, 3.5f, 8.0f,
+                        posY, tileSize, floorTexture);
 
-// Kiri belakang
-drawTexturedKeramik(-7.5f, -5.0f, -4.5f, 5.0f,
-                    posY, tileSize, floorTexture);
+    // Kiri belakang
+    drawTexturedKeramik(-7.5f, -5.0f, -4.5f, 5.0f,
+                        posY, tileSize, floorTexture);
 
-// Kiri depan
-drawTexturedKeramik(-7.5f, 7.0f, -4.5f, 8.0f,
-                    posY, tileSize, floorTexture);
+    // Kiri depan
+    drawTexturedKeramik(-7.5f, 7.0f, -4.5f, 8.0f,
+                        posY, tileSize, floorTexture);
 
-// Koridor
-drawTexturedKeramik(-4.5f, -5.0f, -3.0f, 3.5f,
-                    posY, tileSize, floorTexture);
+    // Koridor
+    drawTexturedKeramik(-4.5f, -5.0f, -3.0f, 3.5f,
+                        posY, tileSize, floorTexture);
 
-// Ruang kanan depan
-drawTexturedKeramik(3.0f, -3.0f, 6.0f, 3.5f,
-                    posY, tileSize, floorTexture);
+    // Ruang kanan depan
+    drawTexturedKeramik(3.0f, -3.0f, 6.0f, 3.5f,
+                        posY, tileSize, floorTexture);
 
-// Smoking Room
-drawTexturedKeramik(3.0f, -5.0f, 6.0f, -3.0f,
-                    posY, tileSize, floorTexture);
+    // Smoking Room
+    drawTexturedKeramik(3.0f, -5.0f, 6.0f, -3.0f,
+                        posY, tileSize, floorTexture);
 
     // =========================================================
     // 2. DINDING BELAKANG, KIRI, & KANAN
@@ -400,6 +463,17 @@ drawTexturedKeramik(3.0f, -5.0f, 6.0f, -3.0f,
                       8.5f, wallHeight, wallThickness, 
                       1.0f, 0.7f, 3.0f, 1.5f, 
                       wallRed, wallGreen, wallBlue);
+    
+    drawGlassPanel(-2.0f, startY, 8.0f, 11.0f, pagarHeight, pagarThickness, glassR, glassG, glassB, alphaKaca);
+    drawGlassPanel(3.25f, startY, 7.0f, pagarThickness, pagarHeight, 2.0f, glassR, glassG, glassB, alphaKaca);
+
+    // 2. Kaca Jendela Dinding Kanan Luar
+    // X = 6.0, Y = startY + 0.7, Center Z = -2.5, Lebar X = 0.1, Tinggi = 1.5, Panjang Z = 3.0
+    drawGlassPanel(6.0f, startY + 0.7f, -2.5f, 0.1f, 1.5f, 3.0f, glassR, glassG, glassB, alphaKaca);
+
+
+    drawGlassPanel(-2.0f, startY, 8.0f, 11.0f, pagarHeight, pagarThickness, glassR, glassG, glassB, alphaKaca);
+    drawGlassPanel(3.25f, startY, 7.0f, pagarThickness, pagarHeight, 2.0f, glassR, glassG, glassB, alphaKaca);
 
     // =========================================================
     // 3. MELENGKUNG (SUDUT KANAN DEPAN)
@@ -423,32 +497,27 @@ drawTexturedKeramik(3.0f, -5.0f, 6.0f, -3.0f,
     // =========================================================
     // 5. ATAP LANTAI 2 / PLAFON 
     // =========================================================
-    // Atap Bagian Kanan
+    // Atap Bagian Kanan (Utama) - Kembali menjadi solid
     drawBlock(0.75f, startY + wallHeight, 1.5f, 10.5f, 0.5f, 13.0f, 0.8f, 0.8f, 0.8f);
 
-    // Atap Bagian Kiri Dalam 
+    // Atap Bagian Kiri Dalam (Z = -5.0 sampai 5.0)
     drawBlock(-6.0f, startY + wallHeight, 0.0f, 3.0f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 
-    // Atap Bagian Kiri Depan 
+    // Atap Bagian Kiri Depan (Z = 7.0 sampai 8.0)
     drawBlock(-6.0f, startY + wallHeight, 7.5f, 3.0f, 0.5f, 1.0f, 0.8f, 0.8f, 0.8f);
-
+    
     // =========================================================
     // TEMBOK SEKAT INTERNAL
     // =========================================================
 
     // =========================================================
-    // DUA PINTU TERPISAH (Sesuai Sketsa)
+    // DUA PINTU TERPISAH 
     // =========================================================
     float tinggi = 3.5f;
     float thickness = 0.3f;
     float pHeight = 2.5f;
 
-    drawWallWithHole(
-    -7.5f, startY, 3.5f,
-    4.0f, tinggi, thickness,
-    1.0f, 0.0f, 1.0f, pHeight,
-    wallRed, wallGreen, wallBlue
-    );
+    drawWallWithHole(-7.5f, startY, 3.5f, 4.0f, tinggi, thickness, 1.0f, 0.0f, 1.0f, pHeight, wallRed, wallGreen, wallBlue);
 
     // Dinding pemisah
     drawBlock(
@@ -513,7 +582,7 @@ void Gedung::drawFurnitureLantai2(){
     glTranslatef(-3.5f, 3.9f, -1.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
     glScalef(0.01f, 0.01f, 0.01f);      // mesh asli satuan cm
     glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak 
     mejaLt2.draw();
     glPopMatrix();
 
@@ -798,16 +867,18 @@ void Gedung::drawLantai3() {
     float posY = startY + 0.002f;
     float tileSize = 1.2f;
 
-    // Indoor
+    // 1. INDOOR (Lantai tengah yang sebelumnya tidak sengaja terhapus)
     drawTexturedKeramik(-4.5f, -4.0f, 3.5f,  2.0f, posY, tileSize, floorTexture);
 
-    // Balkon depan
+    // 2. Balkon depan
     drawTexturedKeramik(-4.5f, 2.0f, 3.5f, 8.0f, posY, tileSize, floorTexture);
 
-    // Sisi kiri
-    drawTexturedKeramik(-7.5f, -5.0f, -4.5f, 8.0f, posY, tileSize,floorTexture);
+    // 3. SISI KIRI (Di sinilah lokasi tangga sebenarnya berada!)
+    // Kita lubangi area X: -7.5 s/d -4.5, dan Z: 5.0 s/d 7.0
+    drawTexturedKeramikWithHole(-7.5f, -5.0f, -4.5f, 8.0f, posY, tileSize, floorTexture, 
+                                -7.5f, 5.0f, -4.5f, 7.0f);
 
-    // Sisi kanan
+    // 4. Sisi kanan
     drawTexturedKeramik(3.5f, -5.0f, 6.0f, 6.0f, posY, tileSize, floorTexture);
 
     // =========================================================
@@ -873,7 +944,7 @@ void Gedung::drawLantai3() {
     // Dinding Belakang Indoor
     drawBlock(-0.5f, startY, -4.0f, 8.0f, wallHeight, indoorThickness, glassR, glassG, glassB,alphaKaca);
 
-    // Dinding Depan Indoor (Tetap menggunakan lubang untuk area pintu masuk)
+    // Dinding Depan Indoor 
     drawWallWithHole(-4.5f, startY, 2.0f, 8.3f, wallHeight, indoorThickness, 
                      3.15f, 0.0f, 2.0f, 2.5f, 
                      glassR, glassG, glassB,alphaKaca);

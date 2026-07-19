@@ -4,29 +4,41 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active project",
-            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "command": "g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                // Mengambil semua file .cpp di dalam folder src
                 "${workspaceFolder}/src/*.cpp",
                 "${workspaceFolder}/src/core/*.cpp",
                 "${workspaceFolder}/src/utils/*.cpp",
+
+                //Uncomment ini misalkan mau menambahkan codingan object
                 "${workspaceFolder}/src/objects/*.cpp",
                 "-o",
+                // Mengarahkan hasil compile (exe) ke folder bin
                 "${workspaceFolder}/bin/main.exe",
+                
+                // Path relatif ke folder include dan lib di dalam project
                 "-I${workspaceFolder}/include",
-                "-IC:\\msys64\\mingw64\\include",
-                "-L${workspaceFolder}/lib",
-                "-LC:\\msys64\\mingw64\\lib",
+                "-L${workspaceFolder}/lib", 
+                
                 "-lfreeglut",
                 "-lopengl32",
                 "-lglu32",
                 "-lgdi32",
                 "-lwinmm"
             ],
-            "options": { "cwd": "${workspaceFolder}" },
-            "problemMatcher": ["$gcc"],
-            "group": { "kind": "build", "isDefault": true },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "detail": "Kompilasi modular OpenGL FreeGLUT untuk Tim"
         }
     ]
