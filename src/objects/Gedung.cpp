@@ -815,12 +815,21 @@ void Gedung::drawFurnitureLantai2(){
     // =====================
     // Meja Ruang Rokok
     // =====================
+    // glPushMatrix();
+    // glTranslatef(5.9f, 3.9f, 2.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
+    // glScalef(0.01f, 0.01f, 0.05f);      // mesh asli satuan cm
+    // glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
+    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
+    // mejaLt2.draw();
+    // glPopMatrix();
+
     glPushMatrix();
-    glTranslatef(5.9f, 3.9f, 2.3f);   // posisi Meja 1 (digeser lebih jauh dari Meja 2)
-    glScalef(0.01f, 0.01f, 0.05f);      // mesh asli satuan cm
-    glRotatef(90.0f, 0.0f, 1.0f, 0.0f); // arah hadap: 90/270 utk tukar sisi panjang
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // berdiri tegak (Z-up mesh -> Y-up), jangan diubah
-    mejaLt2.draw();
+    glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+    glTranslatef(-1.0f, 4.5f, -5.5f); 
+    glScalef(0.6f, 0.6f, 0.6f);
+
+    mejaTempel.draw();
+
     glPopMatrix();
 
     // Kursi 1 (Meja ruang rokok) - sisi kiri, depan - menghadap ke meja (arah +X)
