@@ -2,7 +2,7 @@
 #define JALAN_H
 
 #include <GL/freeglut.h>
-
+//jalan
 class Jalan {
 public:
     Jalan();
