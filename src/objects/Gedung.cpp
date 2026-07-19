@@ -14,6 +14,17 @@
 
 
 #include "utils/Helper.h"
+#include "objects/Wastafel.h"
+#include "objects/Toilet.h"
+#include "objects/MesinKopi.h"
+#include "objects/TabungKopi.h"
+#include "objects/Orang.h"
+
+Orang orang;
+MesinKopi mesinKopi;
+TabungKopi tabungkopi;
+Wastafel wastafel;
+Toilet toilet;
 
 #include <math.h>
 
@@ -1275,5 +1286,10 @@ void Gedung::drawAll() {
     drawFurnitureLantai3();    
     tangga.draw(-6.0f, 0.0f, 6.0f);
     tangga.draw(-6.0f, 4.0f, 6.0f);
+    wastafel.drawAll();
+    toilet.drawAll();
+    mesinKopi.drawAll();
+    tabungkopi.drawAll();
+    orang.drawAll();
     glPopMatrix();
 }
