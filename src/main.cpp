@@ -1,6 +1,7 @@
 #include <GL/freeglut.h>
 
 #include "utils/Camera.h"
+#include "utils/lighting.h"
 #include "core/Keyboard.h"
 #include "core/Mouse.h"
 #include "objects/Gedung.h"
@@ -10,6 +11,7 @@ Camera playerCamera;
 
 Gedung kofibruBuilding;
 Rumah rumahLuar;
+Lighting lighting;
 
 // Mengatur proyeksi 3D saat ukuran jendela berubah dengan menyesuaikan rasio
 void reshape(int w, int h) {
@@ -38,6 +40,9 @@ void display() {
 
     playerCamera.applyCamera();
 
+    //lighting update
+    lighting.update();
+
     kofibruBuilding.drawAll();
     rumahLuar.drawAll();
 
@@ -52,6 +57,9 @@ int main(int argc, char** argv) {
     glutCreateWindow("TR - Simple Kofibru Explorer");
 
     glEnable(GL_DEPTH_TEST);
+
+    //lighting 
+    lighting.initialize();
 
     kofibruBuilding.init();
 
