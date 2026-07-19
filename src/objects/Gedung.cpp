@@ -411,6 +411,33 @@ void Gedung::drawFurnitureLantai1(){
     lampu.draw();
     glPopMatrix();
 
+    //lampu downlight wastafel
+    glPushMatrix();
+    glTranslatef(4.5f, 3.40f, 0.0f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
+    glPopMatrix();
+
+    //lampu downlight wc
+    glPushMatrix();
+    glTranslatef(3.8f, 3.40f, -3.5f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
+    glPopMatrix();
+
+    //lampu downlight luar
+    glPushMatrix();
+    glTranslatef(4.0f, 3.40f, 3.5f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.2f, 3.40f, 4.0f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
+    glPopMatrix();
+
 
 }
 
@@ -874,6 +901,20 @@ void Gedung::drawFurnitureLantai2(){
     glPushMatrix();
     glTranslatef(-1.0f, 7.30f, 0.0f);
     lampu.draw();
+    glPopMatrix();
+
+    //lampu downlight dalem
+    glPushMatrix();
+    glTranslatef(4.4f, 7.4f, -2.0f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
+    glPopMatrix();
+
+    //lampu downlight luar
+    glPushMatrix();
+    glTranslatef(-1.6f, 7.4f, 5.8f);
+    glScalef(0.3f, 0.3f, 0.3f);
+    downlight.draw();
     glPopMatrix();
 }
 
@@ -1378,7 +1419,7 @@ void Gedung::drawFurnitureLantai3(){
 
     //lampu downlight
     glPushMatrix();
-    glTranslatef(1.6f, 11.35f, -0.8f);
+    glTranslatef(-4.0f, 13.7f, 5.5f);
     glScalef(0.3f, 0.3f, 0.3f);
     downlight.draw();
     glPopMatrix();
