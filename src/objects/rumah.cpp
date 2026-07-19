@@ -62,7 +62,7 @@ void Rumah::drawAll() {
     glTranslatef(20.0f, 0.0f, 0.0f);
 
     // Mesh asli dalam satuan cm -> skala ke satuan scene (meter-ish)
-    glScalef(0.01f, 0.01f, 0.01f);
+    glScalef(0.02f, 0.02f, 0.02f);
 
     // Koreksi orientasi: STL pakai Z-up (CAD), scene pakai Y-up (OpenGL)
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
