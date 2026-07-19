@@ -53,6 +53,8 @@ int main(int argc, char** argv) {
 
     glEnable(GL_DEPTH_TEST);
 
+    kofibruBuilding.init();
+
     glutDisplayFunc(display);
     glutReshapeFunc(reshape); 
     
