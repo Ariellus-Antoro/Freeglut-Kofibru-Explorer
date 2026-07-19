@@ -4,6 +4,7 @@
 #include "objects/Kofibru.h"
 #include "objects/Pembatas.h"
 #include "objects/Rumput.h"
+#include "objects/Jalan.h"
 
 
 Pembatas pembatasDepan;
@@ -14,6 +15,8 @@ Rumput rumputDepan;
 Rumput rumputSerong;
 Rumput rumputKecil;
 Kofibru logoKofibruKedua;
+Jalan jalanDepan;
+Jalan jalanSamping;
 
 Rumah::Rumah()
 {
@@ -149,6 +152,31 @@ void Rumah::drawAll()
     logoKofibruKedua.targetHeight = 0.09f;
     logoKofibruKedua.letterSpacing = 0.05f;
     logoKofibruKedua.isBold = true;
+
+    jalanDepan.posX = 5.0f;     // Geser titik tengah jalan ke kiri (X = -10)
+    jalanDepan.posY = 0.0f;      // Agak naik sedikit agar tidak nabrak tanah
+    jalanDepan.posZ = 18.0f;     // Posisi kedalaman (sesuaikan dengan jarak depan rumah)
+    jalanDepan.rotationY = 0.0f;  
+    
+    // Jalan
+    jalanDepan.width = 52.0f;     //  panjang dari kiri ke kanan
+    jalanDepan.height = 0.1f;     // Ketebalan aspal (biar tipis)
+    jalanDepan.length = 10.0f;  //lebar
+
+
+
+
+    //Jalan samping
+    jalanSamping.posX = 15.5f;    // Geser posisinya ke arah kiri (bisa disesuaikan, misalnya di antara ruko dan rumah)
+    jalanSamping.posY = 0.0f;     // Tinggi sama dengan jalan depan biar tidak tumpang tindih aneh
+    jalanSamping.posZ = -5.0f;      // Memanjang ke area belakang scene
+    jalanSamping.rotationY = 0.0f; 
+    
+    // Dimensinya dibalik dari jalan utama
+    jalanSamping.width = 10.0f;     // lebar kanan kiri jalan
+    jalanSamping.height = 0.1f;    // Ketebalan tetap tipis
+    jalanSamping.length = 50.0f; //panjang depan belakang
+
     // =====================
     // Pembatas jalur (eksterior)
     // =====================
@@ -159,6 +187,8 @@ void Rumah::drawAll()
     rumputSerong.drawAll();
     rumputKecil.drawAll();
     logoKofibruKedua.drawAll();
+    jalanDepan.drawAll();
+    jalanSamping.drawAll();
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)
     // =====================

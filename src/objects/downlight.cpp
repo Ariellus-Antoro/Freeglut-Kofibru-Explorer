@@ -99,7 +99,7 @@ void Downlight::draw()
 
     glRotatef(-90.0f,1.0f,0.0f,0.0f);
 
-    glColor3f(0.75f,0.75f,0.75f);
+    glColor3f(1.0f,1.0f,1.0f);
 
     gluCylinder(
         quad,
