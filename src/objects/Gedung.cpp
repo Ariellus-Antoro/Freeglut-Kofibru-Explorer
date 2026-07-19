@@ -865,7 +865,7 @@ void Gedung::drawFurnitureLantai2(){
 
     // meja kecil luar
     glPushMatrix();
-    glTranslatef(0.5f, 3.9f, 6.5f);  
+    glTranslatef(0.5f, 4.0f, 6.5f);  
     glScalef(0.02f, 0.01f, 0.02f);
     mejaKecil.draw();
     glPopMatrix();

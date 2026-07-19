@@ -2,6 +2,7 @@
 #define RUMAH_H
 
 #include "objects/ruko.h"
+#include "objects/prayogo.h"
 
 /**
  * @class Rumah
