@@ -49,6 +49,11 @@ void display() {
     glutSwapBuffers();
 }
 
+void animationTimer(int value) {
+    glutPostRedisplay();
+    glutTimerFunc(200, animationTimer, 0); // refresh setiap 200ms
+}
+
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     

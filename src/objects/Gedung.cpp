@@ -20,6 +20,8 @@
 #include "objects/MesinKopi.h"
 #include "objects/TabungKopi.h"
 #include "objects/Orang.h"
+#include "objects/jam.h"
+#include "objects/bingkai.h"
 
 Orang orang;
 MesinKopi mesinKopi;
@@ -39,6 +41,7 @@ Gedung::Gedung() {
 void Gedung::init(){
     concreteTexture = loadBMP_custom("assets/textures/smooth-concrete.bmp");
     floorTexture = loadBMP_custom("assets/textures/ceramic-white.bmp");
+    bingkaiTexture = loadBMP_custom("assets/textures/faris.bmp");
 }
 
 void Gedung::drawLantai1() {
@@ -362,13 +365,18 @@ void Gedung::drawFurnitureLantai1(){
     glPopMatrix();
 
     // botol sirup (sebelahan dengan gelas, di atas meja kasir yang sama)
-    glPushMatrix();
-    glTranslatef(-1.0f, 0.82f, -3.0f);   // digeser sedikit di X supaya sebelahan, bukan menumpuk, dengan gelas
-    glScalef(0.02f, 0.02f, 0.02f);       // mesh asli satuan cm; botol lebih tinggi dari gelas
-    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // tegakkan model (Z-up mesh -> Y-up)
-    botolSirup.draw();
-    glPopMatrix();
+    for (int i = 0; i < 3; i++) {
+        glPushMatrix();
+
+        glTranslatef(-2.5f + (i * (-0.25f)), 0.82f, -3.0f); // Geser setiap botol 0.5 satuan
+        glScalef(0.02f, 0.02f, 0.02f);
+        glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+        glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+        botolSirup.draw();
+
+        glPopMatrix();
+    }
 
     //sofa 2
     glPushMatrix();
@@ -454,6 +462,23 @@ void Gedung::drawFurnitureLantai1(){
     glPopMatrix();
 
 
+    // jam dinding (di samping AC)
+    glPushMatrix();
+    glTranslatef(-4.74f, 2.5f, -2.0f);
+    glScalef(0.03f, 0.03f, 0.03f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);   // menghadap dinding
+    glRotatef(-180.0f, 0.0f, 1.0f, 1.0f);  // putar agar angka 12 di atas
+    jam.draw();
+    glPopMatrix();
+
+    // bingkai foto (tepat di bawah jam, menempel di dinding yang sama)
+    glPushMatrix();
+    glTranslatef(-4.6f, 1.0f, -0.3f);
+    glRotatef(270.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-180.0f, 0.0f, 1.0f, 1.0f);  // sejajarkan bidang bingkai dengan dinding (sama seperti jam)
+    glScalef(0.004f, 0.004f, 0.004f);
+    bingkai.draw(bingkaiTexture);
+    glPopMatrix();
 }
 
 void Gedung::drawLantai2() {
