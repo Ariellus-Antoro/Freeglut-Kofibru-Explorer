@@ -13,6 +13,7 @@
 #include "objects/gelas.h"
 #include "objects/ac.h"
 #include "objects/cctv.h"
+#include "objects/lampu.h"
 
 
 /**
@@ -40,6 +41,7 @@ private:
     Gelas gelas;
     AC ac;
     CCTV cctv;
+    Lampu lampu;
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
 

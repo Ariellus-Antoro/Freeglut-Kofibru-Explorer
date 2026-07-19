@@ -7,6 +7,7 @@
 #include "objects/gelas.h"
 #include "objects/ac.h"
 #include "objects/cctv.h"
+#include "objects/lampu.h"
 #include "utils/Helper.h"
 
 #include <math.h>
@@ -301,6 +302,13 @@ void Gedung::drawFurnitureLantai1(){
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     cctv.draw();
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-2.5f, 3.45f, 0.0f);
+    lampu.draw();
+    glPopMatrix();
+
+
 }
 
 void Gedung::drawLantai2() {
