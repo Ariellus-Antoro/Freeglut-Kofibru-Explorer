@@ -11,74 +11,56 @@
 
 #include <math.h>
 
+#include "utils/loadBMP_custom.h"
+
 Gedung::Gedung() {
     // skala bangunan
     buildingScale = 1.5f; 
 }
 
-void Gedung::drawKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize) {
-    glPushMatrix();
-    
-    // Menempatkan lantai pada elevasi (Y) yang diminta
-    glTranslatef(0.0f, posY, 0.0f); 
-
-    glBegin(GL_QUADS);
-    int row = 0;
-    for (float z = startZ; z < endZ; z += tileSize) {
-        int col = 0;
-        for (float x = startX; x < endX; x += tileSize) {
-            
-            // Logika selang-seling warna keramik
-            if ((row + col) % 2 == 0) {
-                glColor3f(0.85f, 0.85f, 0.85f); // Warna terang
-            } else {
-                glColor3f(0.70f, 0.70f, 0.70f); // Warna agak gelap
-            }
-
-            // Menggambar 1 kotak keramik
-            glVertex3f(x, 0.0f, z);
-            glVertex3f(x + tileSize, 0.0f, z);
-            glVertex3f(x + tileSize, 0.0f, z + tileSize);
-            glVertex3f(x, 0.0f, z + tileSize);
-            
-            col++;
-        }
-        row++;
-    }
-    glEnd();
-    glPopMatrix();
+void Gedung::init(){
+    concreteTexture = loadBMP_custom("assets/textures/smooth-concrete.bmp");
+    floorTexture = loadBMP_custom("assets/textures/ceramic-white.bmp");
 }
 
 void Gedung::drawLantai1() {
     float startY = 0.0f;
     float wallHeight = 3.5f; 
     float wallThickness = 0.5f; 
-    float wallRed = 0.75f, wallGreen = 0.75f, wallBlue = 0.75f; // Warna dinding abu-abu standar
+    float wallRed = 0.88f, wallGreen = 0.88f, wallBlue = 0.88f;
 
     // =========================================================
     // 0. Ubin
     // ========================================================
-    drawKeramik(-7.5f, -5.0f, 6.0f, 5.0f, -0.05f, 1.2f);
+    drawTexturedKeramik(-7.5f, -5.0f, 6.0f, 5.0f, -0.05f, 1.2f, floorTexture);
 
     // =========================================================
     // 1. DINDING EKSTERIOR
     // =========================================================
-    // Dinding Eksterior Kiri (Sisi terluar dari Ruang Utama / Main Area)
+    // Dinding Eksterior Kiri (Sumbu Z)
     drawBlock(-7.5f, startY, 0.0f, wallThickness, wallHeight, 10.0f, wallRed, wallGreen, wallBlue); 
-    
-    // Dinding Eksterior Belakang (Membentang lurus menutupi Ruang Utama dan Toilet)
+    float offsetKiri = -7.5f - (wallThickness / 2.0f) - 0.001f;
+    drawTexturedSurfaceZ(offsetKiri, startY, 0.0f, 10.0f, wallHeight, concreteTexture, false);
+
+    // Dinding Eksterior Belakang (Sumbu X)
     drawBlock(-0.75f, startY, -5.0f, 13.5f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
-    
+    float offsetBelakang = -5.0f - (wallThickness / 2.0f) - 0.001f;
+    drawTexturedSurfaceX(-0.75f, startY, offsetBelakang, 13.5f, wallHeight, concreteTexture, false);
+
     // =========================================================
-    // 2. AREA TOILET & LORONG (SUDUT KANAN ATAS)
+    // 2. AREA TOILET & LORONG
     // =========================================================
-    // Dinding Eksterior Kanan (Membentuk sisi kanan dari area toilet dan lorong)
-    drawBlock(6.0f, startY, -2.0f, wallThickness, wallHeight, 6.0f, wallRed, wallGreen, wallBlue); 
+    // Dinding Eksterior Kanan (Sumbu Z)
+    drawBlock(6.0f, startY, -2.0f, wallThickness, wallHeight, 6.0f, wallRed, wallGreen, wallBlue);
+    float offsetKanan = 6.0f + (wallThickness / 2.0f) + 0.001f;
+    drawTexturedSurfaceZ(offsetKanan, startY, -2.0f, 6.0f, wallHeight, concreteTexture, true);
     
-    // Dinding Eksterior Depan Lorong (Menutup ujung lorong di sebelah kanan bangunan)
+    // Dinding Eksterior Depan Lorong (Sumbu X)
     drawBlock(5.0f, startY, 1.0f, 2.0f, wallHeight, wallThickness, wallRed, wallGreen, wallBlue);
+    float offsetDepanLorong = 1.0f + (wallThickness / 2.0f) + 0.001f;
+    drawTexturedSurfaceX(5.0f, startY, offsetDepanLorong, 2.0f, wallHeight, concreteTexture, true);
     
-    // Dinding Sekat Depan Toilet (Dilengkapi lubang untuk pintu masuk toilet)
+    // Dinding Sekat Depan Toilet (Interior)
     drawWallWithHole(2.0f, startY, -1.0f, 4.0f, wallHeight, wallThickness, 
                      0.2f, 0.0f, 1.5f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
@@ -86,26 +68,60 @@ void Gedung::drawLantai1() {
     // =========================================================
     // 3. DINDING SEKAT INTERNAL (PEMBAGI RUANGAN)
     // =========================================================
-    // Dinding Sekat Vertikal (Memisahkan Ruang Utama di sebelah kiri dengan area Lorong/Toilet di kanan. Dilengkapi pintu penghubung internal)
+    // Dinding Sekat Vertikal
     drawWallWithHoleZ(2.0f, startY, -5.0f, 7.0f, wallHeight, wallThickness, 
                       4.5f, 0.0f, 1.5f, 2.5f, 
                       wallRed, wallGreen, wallBlue);
 
     // =========================================================
-    // 4. AREA FASAD DEPAN & PINTU UTAMA
+    // AREA FASAD DEPAN & PINTU UTAMA
     // =========================================================
-    // Dinding Sudut Dalam Horizontal (Tembok yang menjorok ke dalam ruangan, tempat pintu penghubung depan berada)
+    // Dinding Sudut Dalam Horizontal
     drawWallWithHole(-2.0f, startY, 2.0f, 4.0f, wallHeight, wallThickness, 
                      0.5f, 0.0f, 3.0f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
+    drawConcreteSurfaceWallWithHole(-2.0f, startY, 2.0f, 4.0f, wallHeight, wallThickness, 
+                                    0.5f, 0.0f, 3.0f, 2.5f, 
+                                    concreteTexture, true); // True = Hadap depan
     
-    // Dinding Sudut Dalam Vertikal (Membentuk siku-siku pada area pintu depan yang menjorok ke dalam)
+    // Dinding Sudut Dalam Vertikal
     drawBlock(-2.0f, startY, 3.5f, wallThickness, wallHeight, 3.0f, wallRed, wallGreen, wallBlue);
+    float offsetSudutVertikal = -2.0f + (wallThickness / 2.0f) + 0.001f;
+    drawTexturedSurfaceZ(offsetSudutVertikal, startY, 3.5f, 3.0f, wallHeight, concreteTexture, true);
 
-    // Dinding Fasad Pintu Masuk (Batas depan Ruang Utama. Posisi lubang pintu diatur agar rata kanan menempel dengan dinding siku-siku)
+    // Dinding Fasad Pintu Masuk Paling Depan
     drawWallWithHole(-7.5f, startY, 5.0f, 5.5f, wallHeight, wallThickness, 
                      3.8f, 0.0f, 1.2f, 2.5f, 
                      wallRed, wallGreen, wallBlue);
+    drawConcreteSurfaceWallWithHole(-7.5f, startY, 5.0f, 5.5f, wallHeight, wallThickness, 
+                                    3.8f, 0.0f, 1.2f, 2.5f, 
+                                    concreteTexture, true);
+    
+    // =========================================================
+    // PENUTUP SUDUT
+    // =========================================================
+    float halfThick = wallThickness / 2.0f;
+    float offsetCap = halfThick + 0.001f;
+
+    // A. Sudut Siku Menjorok
+    drawTexturedSurfaceX(-2.0f, startY, 5.0f + offsetCap, wallThickness, wallHeight, concreteTexture, true);
+    drawTexturedSurfaceZ(-2.0f + 0.001f, startY, 5.0f, wallThickness, wallHeight, concreteTexture, true);
+
+    // B. Sudut Kiri Depan
+    drawTexturedSurfaceX(-7.5f, startY, 5.0f + offsetCap, wallThickness, wallHeight, concreteTexture, true); 
+    drawTexturedSurfaceZ(-7.5f - offsetCap, startY, 5.0f, wallThickness, wallHeight, concreteTexture, false); 
+    
+    // C. Sudut Kiri Belakang
+    drawTexturedSurfaceX(-7.5f, startY, -5.0f - offsetCap, wallThickness, wallHeight, concreteTexture, false); 
+    drawTexturedSurfaceZ(-7.5f - offsetCap, startY, -5.0f, wallThickness, wallHeight, concreteTexture, false); 
+
+    // D. Sudut Kanan Belakang
+    drawTexturedSurfaceX(6.0f, startY, -5.0f - offsetCap, wallThickness, wallHeight, concreteTexture, false); 
+    drawTexturedSurfaceZ(6.0f + offsetCap, startY, -5.0f, wallThickness, wallHeight, concreteTexture, true); 
+
+    // E. Sudut Kanan Depan
+    drawTexturedSurfaceX(6.0f, startY, 1.0f + offsetCap, wallThickness, wallHeight, concreteTexture, true); 
+    drawTexturedSurfaceZ(6.0f + offsetCap, startY, 1.0f, wallThickness, wallHeight, concreteTexture, true);     
 
     // =========================================================
     // 5. AREA BOOTH SEATING (SISI KIRI MAIN AREA)
@@ -132,7 +148,7 @@ void Gedung::drawLantai1() {
     // =========================================================
     // 6. ATAP LANTAI 1 / PLAFON 
     // =========================================================
-    drawBlock(-0.75f, wallHeight, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
+    drawBlock(-0.75f, wallHeight-0.09f, 0.0f, 13.5f, 0.5f, 10.0f, 0.8f, 0.8f, 0.8f);
 }
 
 void Gedung::drawFurnitureLantai1(){
@@ -309,22 +325,42 @@ void Gedung::drawLantai2() {
     float wallHeight = 3.5f; 
     float wallThickness = 0.5f; 
     
-    float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
+    float wallRed = 0.88f, wallGreen = 0.88f, wallBlue = 0.88f;
 
-    // =========================================================
-    // 1. LANTAI / PIJAKAN LANTAI 2 (Menjorok ke Z = 8.0)
-    // =========================================================
-    drawBlock(0.75f, startY - 0.05f, 0.5f, 10.5f, 0.1f, 11.0f, 0.7f, 0.7f, 0.7f);
-    
-    // Ekstensi Balkon Tengah
-    drawBlock(-0.5f, startY - 0.05f, 7.0f, 8.0f, 0.1f, 2.0f, 0.7f, 0.7f, 0.7f);
+// =========================================================
+// LANTAI BERTEKSTUR
+// =========================================================
 
-    // Sisi Kiri Dalam (Lantai interior di atas ruang utama L1)
-    drawBlock(-6.0f, startY - 0.05f, 0.0f, 3.0f, 0.1f, 10.0f, 0.7f, 0.7f, 0.7f);
-    
+float posY = startY - 0.05f;
+float tileSize = 1.2f;
 
-    // Sisi Kiri Depan
-    drawBlock(-6.0f, startY - 0.05f, 7.5f, 3.0f, 0.1f, 1.0f, 0.7f, 0.7f, 0.7f);
+// Area utama
+drawTexturedKeramik(-4.5f, -5.0f, 6.0f, 6.0f,
+                    posY, tileSize, floorTexture);
+
+// Balkon
+drawTexturedKeramik(-4.5f, 6.0f, 3.5f, 8.0f,
+                    posY, tileSize, floorTexture);
+
+// Kiri belakang
+drawTexturedKeramik(-7.5f, -5.0f, -4.5f, 5.0f,
+                    posY, tileSize, floorTexture);
+
+// Kiri depan
+drawTexturedKeramik(-7.5f, 7.0f, -4.5f, 8.0f,
+                    posY, tileSize, floorTexture);
+
+// Koridor
+drawTexturedKeramik(-4.5f, -5.0f, -3.0f, 3.5f,
+                    posY, tileSize, floorTexture);
+
+// Ruang kanan depan
+drawTexturedKeramik(3.0f, -3.0f, 6.0f, 3.5f,
+                    posY, tileSize, floorTexture);
+
+// Smoking Room
+drawTexturedKeramik(3.0f, -5.0f, 6.0f, -3.0f,
+                    posY, tileSize, floorTexture);
 
     // =========================================================
     // 2. DINDING BELAKANG, KIRI, & KANAN
@@ -451,8 +487,26 @@ void Gedung::drawLantai3() {
     float fasadHeight = 5.8f;   
     float wallThickness = 0.5f;
     
-    float wallRed = 0.95f, wallGreen = 0.95f, wallBlue = 0.95f; 
-    float glassR = 0.85f, glassG = 0.85f, glassB = 0.85f;
+    float wallRed = 0.88f, wallGreen = 0.88f, wallBlue = 0.88f;
+    float glassR = 0.82f, glassG = 0.84, glassB=0.86f;
+
+    // =========================================================
+    // LANTAI BERTEKSTUR
+    // =========================================================
+    float posY = startY + 0.002f;
+    float tileSize = 1.2f;
+
+    // Indoor
+    drawTexturedKeramik(-4.5f, -4.0f, 3.5f,  2.0f, posY, tileSize, floorTexture);
+
+    // Balkon depan
+    drawTexturedKeramik(-4.5f, 2.0f, 3.5f, 8.0f, posY, tileSize, floorTexture);
+
+    // Sisi kiri
+    drawTexturedKeramik(-7.5f, -5.0f, -4.5f, 8.0f, posY, tileSize,floorTexture);
+
+    // Sisi kanan
+    drawTexturedKeramik(3.5f, -5.0f, 6.0f, 6.0f, posY, tileSize, floorTexture);
 
     // =========================================================
     // 1. DINDING EKSTERIOR
@@ -563,7 +617,7 @@ void Gedung::drawLantai3() {
     }
     glEnd();
 
-    glDisable(GL_BLEND); //Disable kaca
+    glDisable(GL_BLEND);
     glDepthMask(GL_TRUE);
     
     glPopMatrix();
@@ -602,6 +656,8 @@ void Gedung::drawLantai3() {
     // Bingkai samping kanan
     drawBlock(6.1f, startY + fasadHeight - 0.3f, -0.85f, fThick, fHeight, 8.7f, fR, fG, fB);
 }
+
+
 void Gedung::drawAll() {
     glPushMatrix();
     

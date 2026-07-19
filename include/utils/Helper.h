@@ -73,4 +73,31 @@
      */
     void drawCylinder(float posX, float posY, float posZ, float radius, float h, float r, float g, float b);
 
+
+    void drawTexturedBlock(float x, float y, float z, float width, float height, float depth, GLuint textureID);
+    void drawConcreteWallWithHole(float posX, float posY, float posZ, 
+                                float wallW, float wallH, float thickness, 
+                                float holeX, float holeY, float holeW, float holeH, 
+                                GLuint textureID);
+    
+    void drawConcreteWallWithHoleZ(float positionX, float positionY, float positionZ, 
+                               float wallDepth, float wallHeight, float wallThickness, 
+                               float holeZ, float holeY, float holeDepth, float holeHeight, 
+                               GLuint textureID);
+    
+    void drawTexturedKeramik(float startX, float startZ, float endX, float endZ, float posY, float tileSize, GLuint textureID);
+
+    void drawTexturedSurfaceX(float x, float y, float z, float width, float height, GLuint textureID, bool facingFront);
+
+    void drawTexturedSurfaceZ(float x, float y, float z, float depth, float height, GLuint textureID, bool facingRight);
+
+    void drawConcreteSurfaceWallWithHole(float posX, float posY, float posZ, 
+                                        float wallW, float wallH, float thickness, 
+                                        float holeX, float holeY, float holeW, float holeH, 
+                                        GLuint textureID, bool facingFront);
+
+    void drawConcreteSurfaceWallWithHoleZ(float positionX, float positionY, float positionZ, 
+                                        float wallDepth, float wallHeight, float wallThickness, 
+                                        float holeZ, float holeY, float holeDepth, float holeHeight, 
+                                        GLuint textureID, bool facingRight);
 #endif

@@ -2,6 +2,7 @@
 #define GEDUNG_H
 
 
+
 #include <GL/freeglut.h>
 #include "objects/KursiBulat.h"
 #include "objects/MejaKasir.h"
@@ -15,6 +16,9 @@
 #include "objects/cctv.h"
 
 
+
+
+
 /**
  * @class Gedung
  * @brief Menangani seluruh logika rendering untuk struktur 3D bangunan Kofibru.
@@ -22,6 +26,9 @@
 class Gedung {
 public:
     Gedung();
+    GLuint concreteTexture;
+    GLuint floorTexture;
+    void init();
     
     /**
      * @brief Fungsi utama untuk me-render seluruh gedung.
