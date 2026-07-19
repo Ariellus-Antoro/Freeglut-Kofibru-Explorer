@@ -10,8 +10,9 @@ GLuint loadBMP_custom(const char* imagepath) {
     unsigned char* data;
     FILE* file;
 
-    // fopen_64(&file, imagepath, "rb");
-    // if (!file) { printf("Image could not be opened\n"); return 0; }
+
+    fopen_s(&file, imagepath, "rb");
+    if (!file) { printf("Image could not be opened\n"); return 0; }
 
     //linux
     file = fopen(imagepath, "rb");

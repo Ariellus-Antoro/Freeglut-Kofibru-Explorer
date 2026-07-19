@@ -4,6 +4,8 @@
 #include "objects/Kofibru.h"
 #include "objects/Pembatas.h"
 #include "objects/Rumput.h"
+#include "objects/Jalan.h"
+#include "objects/prayogo.h"
 
 
 Pembatas pembatasDepan;
@@ -14,6 +16,9 @@ Rumput rumputDepan;
 Rumput rumputSerong;
 Rumput rumputKecil;
 Kofibru logoKofibruKedua;
+Jalan jalanDepan;
+Jalan jalanSamping;
+Prayogo prayogo;
 
 Rumah::Rumah()
 {
@@ -77,12 +82,13 @@ void Rumah::drawAll()
 
     // Posisi rumah di luar footprint Gedung (gedung berada kira-kira di
     // X -7.5..7, Z -5..8). Digeser jauh ke samping supaya jelas di luar.
-    glTranslatef(20.0f, 0.0f, 0.0f);
+    glTranslatef(21.0f, 0.0f, 0.0f);
 
     // Mesh asli dalam satuan cm -> skala ke satuan scene (meter-ish)
     glScalef(0.02f, 0.02f, 0.02f);
 
     // Koreksi orientasi: STL pakai Z-up (CAD), scene pakai Y-up (OpenGL)
+    glRotatef(270.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
     draw();
@@ -149,6 +155,31 @@ void Rumah::drawAll()
     logoKofibruKedua.targetHeight = 0.09f;
     logoKofibruKedua.letterSpacing = 0.05f;
     logoKofibruKedua.isBold = true;
+
+    jalanDepan.posX = 5.0f;     // Geser titik tengah jalan ke kiri (X = -10)
+    jalanDepan.posY = 0.0f;      // Agak naik sedikit agar tidak nabrak tanah
+    jalanDepan.posZ = 18.0f;     // Posisi kedalaman (sesuaikan dengan jarak depan rumah)
+    jalanDepan.rotationY = 0.0f;  
+    
+    // Jalan
+    jalanDepan.width = 52.0f;     //  panjang dari kiri ke kanan
+    jalanDepan.height = 0.1f;     // Ketebalan aspal (biar tipis)
+    jalanDepan.length = 10.0f;  //lebar
+
+
+
+
+    //Jalan samping
+    jalanSamping.posX = 15.5f;    // Geser posisinya ke arah kiri (bisa disesuaikan, misalnya di antara ruko dan rumah)
+    jalanSamping.posY = 0.0f;     // Tinggi sama dengan jalan depan biar tidak tumpang tindih aneh
+    jalanSamping.posZ = -5.0f;      // Memanjang ke area belakang scene
+    jalanSamping.rotationY = 0.0f; 
+    
+    // Dimensinya dibalik dari jalan utama
+    jalanSamping.width = 10.0f;     // lebar kanan kiri jalan
+    jalanSamping.height = 0.1f;    // Ketebalan tetap tipis
+    jalanSamping.length = 50.0f; //panjang depan belakang
+
     // =====================
     // Pembatas jalur (eksterior)
     // =====================
@@ -159,6 +190,8 @@ void Rumah::drawAll()
     rumputSerong.drawAll();
     rumputKecil.drawAll();
     logoKofibruKedua.drawAll();
+    jalanDepan.drawAll();
+    jalanSamping.drawAll();
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)
     // =====================
@@ -167,5 +200,18 @@ void Rumah::drawAll()
     glScalef(0.015f, 0.015f, 0.015f);  // mesh asli satuan cm, sesuaikan skala ruko di sini
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     ruko.draw();
+    glPopMatrix();
+
+    // =====================
+    // Prayogo (ditaruh persis di SEBELAH Ruko -- digeser ke arah -X
+    // sejauh kira-kira lebar footprint Ruko + jarak antar bangunan,
+    // supaya tidak menabrak/menumpuk dengan Ruko)
+    // =====================
+    glPushMatrix();
+    glTranslatef(-25.0f, 0.0f, 32.0f); // di sebelah ruko (geser lebih jauh ke -X dari posisi ruko)
+    glScalef(0.015f, 0.015f, 0.015f);  // mesh asli satuan cm, sesuaikan skala prayogo di sini
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    prayogo.draw();
     glPopMatrix();
 }
