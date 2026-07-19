@@ -412,3 +412,76 @@
             drawTexturedSurfaceZ(surfaceX, topY, centerZ, holeDepth, topHeight, textureID, facingRight);
         }
     }
+
+    void drawCeilingWithHole(float startX, float startZ, float endX, float endZ, 
+                            float posY, float thickness, float r, float g, float b,
+                            float holeStartX, float holeStartZ, float holeEndX, float holeEndZ) {
+        
+        // 1. Bagian Belakang
+        if (holeStartZ > startZ) {
+            float w = endX - startX;
+            float d = holeStartZ - startZ;
+            drawBlock(startX + w/2.0f, posY, startZ + d/2.0f, w, thickness, d, r, g, b);
+        }
+        // 2. Bagian Depan
+        if (holeEndZ < endZ) {
+            float w = endX - startX;
+            float d = endZ - holeEndZ;
+            drawBlock(startX + w/2.0f, posY, holeEndZ + d/2.0f, w, thickness, d, r, g, b);
+        }
+        // 3. Bagian Kiri
+        if (holeStartX > startX) {
+            float w = holeStartX - startX;
+            float d = holeEndZ - holeStartZ;
+            drawBlock(startX + w/2.0f, posY, holeStartZ + d/2.0f, w, thickness, d, r, g, b);
+        }
+        // 4. Bagian Kanan
+        if (holeEndX < endX) {
+            float w = endX - holeEndX;
+            float d = holeEndZ - holeStartZ;
+            drawBlock(holeEndX + w/2.0f, posY, holeStartZ + d/2.0f, w, thickness, d, r, g, b);
+        }
+    }
+
+    void drawTexturedKeramikWithHole(float startX, float startZ, float endX, float endZ, 
+                                 float posY, float tileSize, GLuint textureID,
+                                 float holeStartX, float holeStartZ, float holeEndX, float holeEndZ) {
+    
+        // 1. Bagian Belakang (Lantai sebelum lubang pada sumbu Z)
+        if (holeStartZ > startZ) {
+            drawTexturedKeramik(startX, startZ, endX, holeStartZ, posY, tileSize, textureID);
+        }
+        
+        // 2. Bagian Depan (Lantai setelah lubang pada sumbu Z)
+        if (holeEndZ < endZ) {
+            drawTexturedKeramik(startX, holeEndZ, endX, endZ, posY, tileSize, textureID);
+        }
+        
+        // 3. Bagian Kiri (Lantai di sisi kiri lubang, diapit oleh Z lubang)
+        if (holeStartX > startX) {
+            drawTexturedKeramik(startX, holeStartZ, holeStartX, holeEndZ, posY, tileSize, textureID);
+        }
+        
+        // 4. Bagian Kanan (Lantai di sisi kanan lubang, diapit oleh Z lubang)
+        if (holeEndX < endX) {
+            drawTexturedKeramik(holeEndX, holeStartZ, endX, holeEndZ, posY, tileSize, textureID);
+        }
+    }
+
+    void drawGlassPanel(float x, float y, float z, float width, float height, float depth, float r, float g, float b, float alpha)
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glDepthMask(GL_FALSE);
+
+        drawBlock(
+            x, y, z,
+            width, height, depth,
+            r, g, b,
+            alpha
+        );
+
+        glDepthMask(GL_TRUE);
+        glDisable(GL_BLEND);
+    }
