@@ -7,7 +7,7 @@ Toilet::Toilet() {
     posZ = -4.7f;
     rotationY = 0.0f;
 
-    targetHeight = 1.5f; // Sesuaikan skala tinggi toilet
+    targetHeight = 1.0f; // Sesuaikan skala tinggi toilet
 
     colorR = 0.95f;
     colorG = 0.95f;
