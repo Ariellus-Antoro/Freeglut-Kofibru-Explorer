@@ -485,3 +485,87 @@
         glDepthMask(GL_TRUE);
         glDisable(GL_BLEND);
     }
+
+    void drawTexturedCylinder(float x, float y, float z, float radius, float height, GLuint textureID) {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glColor3f(1.0f, 1.0f, 1.0f); // Reset warna agar tekstur tidak gelap
+        
+        glPushMatrix();
+        glTranslatef(x, y, z);
+        glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); // Tegakkan silinder ke atas (sumbu Y)
+        
+        GLUquadric* quad = gluNewQuadric();
+        gluQuadricTexture(quad, GL_TRUE); // Wajib: Aktifkan mode tekstur untuk quadric
+        
+        // Gambar selimut tabung
+        gluCylinder(quad, radius, radius, height, 32, 1);
+        
+        // Gambar tutup atas tabung agar tidak bolong
+        glTranslatef(0.0f, 0.0f, height);
+        gluDisk(quad, 0.0f, radius, 32, 1);
+        
+        gluDeleteQuadric(quad);
+        glPopMatrix();
+        
+        glDisable(GL_TEXTURE_2D);
+    }
+
+    void drawTexturedCurvedWall(float cx, float cy, float cz, float radius, float thickness, float height, float startAngle, float endAngle, int segments, GLuint textureID) {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        float rOut = radius + (thickness / 2.0f);
+        float rIn = radius - (thickness / 2.0f);
+        float pi = 3.14159265f;
+
+        // 1. Gambar Dinding Sisi Luar
+        glBegin(GL_QUAD_STRIP);
+        for (int i = 0; i <= segments; i++) {
+            float angle = startAngle + (endAngle - startAngle) * i / segments;
+            float rad = angle * pi / 180.0f;
+            float x = cx + rOut * cos(rad);
+            float z = cz + rOut * sin(rad);
+            float u = (float)i / segments * 2.0f; 
+            
+            glNormal3f(cos(rad), 0.0f, sin(rad));
+            glTexCoord2f(u, 0.0f); glVertex3f(x, cy, z);
+            glTexCoord2f(u, height/2.0f); glVertex3f(x, cy + height, z);
+        }
+        glEnd();
+
+        // 2. Gambar Dinding Sisi Dalam
+        glBegin(GL_QUAD_STRIP);
+        for (int i = 0; i <= segments; i++) {
+            float angle = startAngle + (endAngle - startAngle) * i / segments;
+            float rad = angle * pi / 180.0f;
+            float x = cx + rIn * cos(rad);
+            float z = cz + rIn * sin(rad);
+            float u = (float)i / segments * 2.0f;
+            
+            glNormal3f(-cos(rad), 0.0f, -sin(rad));
+            glTexCoord2f(u, 0.0f); glVertex3f(x, cy, z);
+            glTexCoord2f(u, height/2.0f); glVertex3f(x, cy + height, z);
+        }
+        glEnd();
+
+        // 3. Gambar Tutup Atas (Bibir Dinding)
+        glBegin(GL_QUAD_STRIP);
+        for (int i = 0; i <= segments; i++) {
+            float angle = startAngle + (endAngle - startAngle) * i / segments;
+            float rad = angle * pi / 180.0f;
+            float xOut = cx + rOut * cos(rad);
+            float zOut = cz + rOut * sin(rad);
+            float xIn = cx + rIn * cos(rad);
+            float zIn = cz + rIn * sin(rad);
+            float u = (float)i / segments * 2.0f;
+            
+            glNormal3f(0.0f, 1.0f, 0.0f);
+            glTexCoord2f(u, 0.0f); glVertex3f(xIn, cy + height, zIn);
+            glTexCoord2f(u, 1.0f); glVertex3f(xOut, cy + height, zOut);
+        }
+        glEnd();
+
+        glDisable(GL_TEXTURE_2D);
+    }
