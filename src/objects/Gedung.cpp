@@ -12,7 +12,9 @@
 #include "objects/Toilet.h"
 #include "objects/MesinKopi.h"
 #include "objects/TabungKopi.h"
+#include "objects/Orang.h"
 
+Orang orang;
 MesinKopi mesinKopi;
 TabungKopi tabungkopi;
 Wastafel wastafel;
@@ -627,5 +629,6 @@ void Gedung::drawAll() {
     toilet.drawAll();
     mesinKopi.drawAll();
     tabungkopi.drawAll();
+    orang.drawAll();
     glPopMatrix();
 }

@@ -1,6 +1,7 @@
 #include "objects/Kofibru.h"
 
-Kofibru::Kofibru() {
+Kofibru::Kofibru()
+{
     posX = 9.7f;
     posY = 0.9f;
     posZ = 4.0f;
@@ -22,64 +23,83 @@ Kofibru::Kofibru() {
     modelT2.loadOBJ("src/models/t2.obj");
 }
 
-float Kofibru::drawLetterNormalized(ModelLoader& model, float cursorOffset,
-                                      float colorRed, float colorGreen, float colorBlue) {
+float Kofibru::drawLetterNormalized(ModelLoader &model, float cursorOffset,
+                                    float colorRed, float colorGreen, float colorBlue)
+{
     float h = model.getHeight();
-    if (h <= 0.0f) return 0.0f;
+    if (h <= 0.0f)
+        return 0.0f;
 
     float scale = targetHeight / h;
-    float scaledWidth = model.getWidth() * scale;
+
+    // Tentukan faktor tebal (misal 1.3f) jika isBold true, kalau false tetap 1.0f (normal)
+    float boldFactor = isBold ? 1.3f : 1.0f;
 
     glPushMatrix();
-        glTranslatef(cursorOffset, 0.0f, 0.0f);
-        glScalef(scale, scale, scale);
-        glTranslatef(-model.getMinX(), -model.getMinY(), -model.getMinZ());
-        glColor3f(colorRed, colorGreen, colorBlue);
-        model.draw();
+    glTranslatef(cursorOffset, 0.0f, 0.0f);
+
+    // Skala X dan Z dikali boldFactor
+    glScalef(scale * boldFactor, scale, scale * boldFactor);
+
+    glTranslatef(-model.getMinX(), -model.getMinY(), -model.getMinZ());
+    glColor3f(colorRed, colorGreen, colorBlue);
+    model.draw();
     glPopMatrix();
 
-    return scaledWidth;
+    return model.getWidth() * scale * boldFactor;
 }
 
-void Kofibru::drawDot(ModelLoader& model, float cursorOffset, float liftHeight,
-                        float colorRed, float colorGreen, float colorBlue) {
+void Kofibru::drawDot(ModelLoader &model, float cursorOffset, float liftHeight,
+                      float colorRed, float colorGreen, float colorBlue)
+{
     float h = model.getHeight();
-    if (h <= 0.0f) return;
+    if (h <= 0.0f)
+        return;
 
+    // Pakai dotSize seperti awal agar ukurannya tidak berubah-ubah
     float scale = dotSize / h;
 
     glPushMatrix();
-        glTranslatef(cursorOffset, liftHeight, 0.0f);
-        glScalef(scale, scale, scale);
-        glTranslatef(-model.getMinX(), -model.getMinY(), -model.getMinZ());
-        glColor3f(colorRed, colorGreen, colorBlue);
-        model.draw();
+    // Pakai offset sederhana
+    glTranslatef(cursorOffset, liftHeight, 0.0f);
+    glScalef(scale, scale, scale);
+    // Kembali ke setting awal tanpa mengubah origin secara drastis
+    glTranslatef(-model.getMinX(), -model.getMinY(), -model.getMinZ());
+    glColor3f(colorRed, colorGreen, colorBlue);
+    model.draw();
     glPopMatrix();
 }
 
-void Kofibru::drawAll() {
+void Kofibru::drawAll()
+{
     float black = 0.3f;
     float cursor = 0.0f;
 
     glPushMatrix();
-        glTranslatef(posX, posY, posZ);
-        glRotatef(rotationY, 0.0f, 1.0f, 0.0f);
+    glTranslatef(posX, posY, posZ);
+    glRotatef(rotationY, 0.0f, 1.0f, 0.0f);
 
-        cursor += drawLetterNormalized(modelK, cursor, black, black, black) + letterSpacing;
-        cursor += drawLetterNormalized(modelO, cursor, black, black, black) + letterSpacing;
-        cursor += drawLetterNormalized(modelF, cursor, black, black, black) + letterSpacing;
-        cursor += drawLetterNormalized(modelI, cursor, black, black, black) + letterSpacing;
-        cursor += drawLetterNormalized(modelB, cursor, black, black, black) + letterSpacing;
-        cursor += drawLetterNormalized(modelR, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelK, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelO, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelF, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelI, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelB, cursor, black, black, black) + letterSpacing;
+    cursor += drawLetterNormalized(modelR, cursor, black, black, black) + letterSpacing;
 
-        float uStartX = cursor;
-        float uWidth = drawLetterNormalized(modelU, cursor, black, black, black);
-        cursor += uWidth + letterSpacing;
+    float uStartX = cursor;
+    float uWidth = drawLetterNormalized(modelU, cursor, black, black, black);
+    cursor += uWidth + letterSpacing;
 
+    float uCenterX = uStartX + (uWidth * 0.5f);
+    float dotGap = uWidth * 0.18f;
+
+    if (drawDots)
+    {
         float uCenterX = uStartX + (uWidth * 0.5f);
         float dotGap = uWidth * 0.18f;
 
         drawDot(modelT1, uCenterX - dotGap, targetHeight + dotHeightAboveLetter, black, black, black);
         drawDot(modelT2, uCenterX + dotGap, targetHeight + dotHeightAboveLetter, black, black, black);
+    }
     glPopMatrix();
 }
