@@ -41,7 +41,7 @@ void Baliho::drawAll() {
         // 2. Papan Baliho
         glPushMatrix();
             glTranslatef(0.0f, 4.5f, 0.0f);
-            glColor3f(1.0f, 1.0f, 1.0f); // Papan putih
+            glColor3f(1.5f, 0.0f, 0.0f); // Papan putih
             glScalef(width, height, thickness);
             glutSolidCube(1.0);
         glPopMatrix();

@@ -4,9 +4,9 @@
 
 Kasir::Kasir() {
     // Warna default kasir (coklat kayu). Ubah di sini kalau mau warna lain.
-    colorRed = 0.55f;
-    colorGreen = 0.35f;
-    colorBlue = 0.2f;
+    colorRed = 0.30f;
+    colorGreen = 0.30f;
+    colorBlue = 0.30f;
 }
 
 void Kasir::draw() {

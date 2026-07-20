@@ -4,9 +4,9 @@
 
 AC::AC() {
     // Warna body AC: merah gelap
-    colorRed = 0.55f;
-    colorGreen = 0.0f;
-    colorBlue = 0.0f;
+    colorRed = 0.95f;
+    colorGreen = 0.95f;
+    colorBlue = 0.92f; 
 }
 
 void AC::draw() {

@@ -8,7 +8,7 @@ Orang::Orang() {
 
     targetHeight = 1.6f; // Tinggi rata-rata orang
 
-    colorR = 0.8f; colorG = 0.7f; colorB = 0.6f; // Warna kulit
+    colorR = 0.3f; colorG = 0.2f; colorB = 0.1f; // Warna kulit
 
     model.loadOBJ("src/models/Orang.obj");
 }

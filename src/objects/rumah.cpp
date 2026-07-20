@@ -17,6 +17,7 @@ Rumput rumputKecil;
 Kofibru logoKofibruKedua;
 Jalan jalanDepan;
 Jalan jalanSamping;
+Jalan jalanAwal;
 Baliho balihoDepan;
 Prayogo prayogo;
 
@@ -156,12 +157,12 @@ void Rumah::drawAll()
     logoKofibruKedua.letterSpacing = 0.05f;
     logoKofibruKedua.isBold = true;
 
+    //jalan depan
     jalanDepan.posX = 5.0f;  // Geser titik tengah jalan ke kiri (X = -10)
     jalanDepan.posY = 0.0f;  // Agak naik sedikit agar tidak nabrak tanah
     jalanDepan.posZ = 18.0f; // Posisi kedalaman (sesuaikan dengan jarak depan rumah)
     jalanDepan.rotationY = 0.0f;
 
-    // Jalan
     jalanDepan.width = 52.0f;  //  panjang dari kiri ke kanan
     jalanDepan.height = 0.1f;  // Ketebalan aspal (biar tipis)
     jalanDepan.length = 10.0f; // lebar
@@ -169,18 +170,28 @@ void Rumah::drawAll()
     // Jalan samping
     jalanSamping.posX = 15.5f; // Geser posisinya ke arah kiri (bisa disesuaikan, misalnya di antara ruko dan rumah)
     jalanSamping.posY = 0.0f;  // Tinggi sama dengan jalan depan biar tidak tumpang tindih aneh
-    jalanSamping.posZ = -5.0f; // Memanjang ke area belakang scene
+    jalanSamping.posZ = -12.0f; // Memanjang ke area belakang scene
     jalanSamping.rotationY = 0.0f;
 
     // Dimensinya dibalik dari jalan utama
-    jalanSamping.width = 10.0f;  // lebar kanan kiri jalan
+    jalanSamping.width = 7.0f;  // lebar kanan kiri jalan
     jalanSamping.height = 0.1f;  // Ketebalan tetap tipis
     jalanSamping.length = 50.0f; // panjang depan belakang
 
+    //Jalan awal yang lurus kearah kofibru
+    jalanAwal.posX = -16.0f;  // Posisi awal jalan di tengah scene
+    jalanAwal.posY = 0.0f;  // Tinggi sama dengan
+    jalanAwal.posZ = 43.0f;  // Posisi awal jalan di tengah scene
+    jalanAwal.rotationY = 0.0f;
+
+    jalanAwal.width = 10.0f;  // lebar jalan
+    jalanAwal.height = 0.1f;  // Ketebalan tetap tipis
+    jalanAwal.length = 40.0f; // panjang jalan ke arah kofibru
+
     // baliho
-    balihoDepan.posX = 21.1f;
+    balihoDepan.posX = 20.0f;
     balihoDepan.posY = 0.0f;
-    balihoDepan.posZ = 10.0f;
+    balihoDepan.posZ = 1.0f;
     balihoDepan.width = 3.0f;
     balihoDepan.height = 2.0f;
 
@@ -198,6 +209,7 @@ void Rumah::drawAll()
     logoKofibruKedua.drawAll();
     jalanDepan.drawAll();
     jalanSamping.drawAll();
+    jalanAwal.drawAll();
     balihoDepan.drawAll();
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)
