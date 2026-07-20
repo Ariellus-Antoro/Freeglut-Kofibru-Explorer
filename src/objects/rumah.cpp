@@ -18,6 +18,7 @@ Kofibru logoKofibruKedua;
 Jalan jalanDepan;
 Jalan jalanSamping;
 Baliho balihoDepan;
+Prayogo prayogo;
 
 Rumah::Rumah()
 {
@@ -81,12 +82,13 @@ void Rumah::drawAll()
 
     // Posisi rumah di luar footprint Gedung (gedung berada kira-kira di
     // X -7.5..7, Z -5..8). Digeser jauh ke samping supaya jelas di luar.
-    glTranslatef(20.0f, 0.0f, 0.0f);
+    glTranslatef(21.0f, 0.0f, 0.0f);
 
     // Mesh asli dalam satuan cm -> skala ke satuan scene (meter-ish)
     glScalef(0.02f, 0.02f, 0.02f);
 
     // Koreksi orientasi: STL pakai Z-up (CAD), scene pakai Y-up (OpenGL)
+    glRotatef(270.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
     draw();
@@ -205,5 +207,18 @@ void Rumah::drawAll()
     glScalef(0.015f, 0.015f, 0.015f);  // mesh asli satuan cm, sesuaikan skala ruko di sini
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     ruko.draw();
+    glPopMatrix();
+
+    // =====================
+    // Prayogo (ditaruh persis di SEBELAH Ruko -- digeser ke arah -X
+    // sejauh kira-kira lebar footprint Ruko + jarak antar bangunan,
+    // supaya tidak menabrak/menumpuk dengan Ruko)
+    // =====================
+    glPushMatrix();
+    glTranslatef(-25.0f, 0.0f, 32.0f); // di sebelah ruko (geser lebih jauh ke -X dari posisi ruko)
+    glScalef(0.015f, 0.015f, 0.015f);  // mesh asli satuan cm, sesuaikan skala prayogo di sini
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    prayogo.draw();
     glPopMatrix();
 }

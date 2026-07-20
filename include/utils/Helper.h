@@ -3,6 +3,7 @@
 #define HELPER_H
 
 #include <GL/freeglut.h> 
+#include <math.h>
 
 // Deklarasikan semua fungsi helper yang kamu miliki
     /**
@@ -110,4 +111,8 @@
                                  float holeStartX, float holeStartZ, float holeEndX, float holeEndZ);
 
     void drawGlassPanel(float x, float y, float z, float width, float height, float depth, float r, float g, float b, float alpha);
+
+    void drawTexturedCylinder(float x, float y, float z, float radius, float height, GLuint textureID);
+
+    void drawTexturedCurvedWall(float cx, float cy, float cz, float radius, float thickness, float height, float startAngle, float endAngle, int segments, GLuint textureID);
 #endif

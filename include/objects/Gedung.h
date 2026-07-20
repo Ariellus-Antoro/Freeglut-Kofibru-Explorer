@@ -21,6 +21,9 @@
 #include "objects/botolsirup.h"
 #include "objects/kasir.h"
 #include "objects/downlight.h"
+#include "mejaTempel.h"
+#include "objects/jam.h"
+#include "objects/bingkai.h"
 
 
 
@@ -35,6 +38,7 @@ public:
     Gedung();
     GLuint concreteTexture;
     GLuint floorTexture;
+    GLuint bingkaiTexture;
     void init();
     
     /**
@@ -61,6 +65,9 @@ private:
     BotolSirup botolSirup;
     Kasir kasirUang;
     Downlight downlight;
+    MejaTempel mejaTempel;
+    Jam jam;
+    Bingkai bingkai;
 
 
     float buildingScale; ///< Faktor pengali skala gedung (1.0 = normal, 1.5 = 50% lebih besar)
