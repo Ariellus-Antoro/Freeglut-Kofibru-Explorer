@@ -12,6 +12,8 @@
 #include "objects/mejalt2.h"
 #include "objects/mejakotak.h"
 #include "objects/botolsirup.h"
+#include "objects/BoxKopi.h"
+#include "objects/GelasBox.h"
 
 
 #include "utils/Helper.h"
@@ -20,14 +22,18 @@
 #include "objects/MesinKopi.h"
 #include "objects/TabungKopi.h"
 #include "objects/Orang.h"
-#include "objects/jam.h"
-#include "objects/bingkai.h"
+
+
+
 
 Orang orang;
 MesinKopi mesinKopi;
 TabungKopi tabungkopi;
 Wastafel wastafel;
 Toilet toilet;
+
+BoxKopi boxKopi;
+GelasBox gelasBox;
 
 #include <math.h>
 
@@ -434,51 +440,26 @@ void Gedung::drawFurnitureLantai1(){
     lampu.draw();
     glPopMatrix();
 
-    //lampu downlight wastafel
-    glPushMatrix();
-    glTranslatef(4.5f, 3.40f, 0.0f);
-    glScalef(0.3f, 0.3f, 0.3f);
-    downlight.draw();
-    glPopMatrix();
-
-    //lampu downlight wc
-    glPushMatrix();
-    glTranslatef(3.8f, 3.40f, -3.5f);
-    glScalef(0.3f, 0.3f, 0.3f);
-    downlight.draw();
-    glPopMatrix();
-
-    //lampu downlight luar
-    glPushMatrix();
-    glTranslatef(4.0f, 3.40f, 3.5f);
-    glScalef(0.3f, 0.3f, 0.3f);
-    downlight.draw();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0.2f, 3.40f, 4.0f);
-    glScalef(0.3f, 0.3f, 0.3f);
-    downlight.draw();
-    glPopMatrix();
 
 
-    // jam dinding (di samping AC)
-    glPushMatrix();
-    glTranslatef(-4.74f, 2.5f, -2.0f);
-    glScalef(0.03f, 0.03f, 0.03f);
-    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);   // menghadap dinding
-    glRotatef(-180.0f, 0.0f, 1.0f, 1.0f);  // putar agar angka 12 di atas
-    jam.draw();
-    glPopMatrix();
+    //mesin kopi kotak ne
+    boxKopi.posX = -1.25f;//positif ke kanan
+    boxKopi.posY = 0.8f;
+    boxKopi.posZ = -2.6;//naik ke positif = maju
+    boxKopi.rotationY = -180.0f;
+    boxKopi.length = 0.5f;
+    boxKopi.width = 0.5f;
+    boxKopi.height = 0.5f;
 
-    // bingkai foto (tepat di bawah jam, menempel di dinding yang sama)
-    glPushMatrix();
-    glTranslatef(-4.6f, 1.0f, -0.3f);
-    glRotatef(270.0f, 0.0f, 1.0f, 0.0f);
-    glRotatef(-180.0f, 0.0f, 1.0f, 1.0f);  // sejajarkan bidang bingkai dengan dinding (sama seperti jam)
-    glScalef(0.004f, 0.004f, 0.004f);
-    bingkai.draw(bingkaiTexture);
-    glPopMatrix();
+    //gelas ne
+    gelasBox.posX = -1.45f;
+    gelasBox.posY = 1.1f;
+    gelasBox.posZ = -2.8f;
+    gelasBox.rotationY = 0.0f;
+    gelasBox.length = 0.1f;
+    gelasBox.width = 0.1f;
+    gelasBox.height = 0.5f;
+
 }
 
 void Gedung::drawLantai2() {
@@ -1496,6 +1477,8 @@ void Gedung::drawAll() {
     
     glScalef(buildingScale, buildingScale, buildingScale); 
 
+    
+
    
     drawLantai1();
     drawLantai2(); 
@@ -1510,5 +1493,8 @@ void Gedung::drawAll() {
     mesinKopi.drawAll();
     tabungkopi.drawAll();
     orang.drawAll();
+    boxKopi.drawAll();
+    gelasBox.drawAll();
+
     glPopMatrix();
 }
