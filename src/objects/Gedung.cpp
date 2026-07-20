@@ -12,6 +12,8 @@
 #include "objects/mejalt2.h"
 #include "objects/mejakotak.h"
 #include "objects/botolsirup.h"
+#include "objects/BoxKopi.h"
+#include "objects/GelasBox.h"
 
 
 #include "utils/Helper.h"
@@ -22,8 +24,7 @@
 #include "objects/Orang.h"
 
 
-#include "objects/BoxKopi.h"
-#include "objects/GelasBox.h"
+
 
 Orang orang;
 MesinKopi mesinKopi;
@@ -417,25 +418,6 @@ void Gedung::drawFurnitureLantai1(){
     glTranslatef(-2.5f, 3.40f, 0.0f);
     lampu.draw();
     glPopMatrix();
-
-
-    //mesin kopi kotak ne
-    boxKopi.posX = -2.0f;
-    boxKopi.posY = 0.8f;
-    boxKopi.posZ = -3.0f;
-    boxKopi.rotationY = -70.0f;
-    boxKopi.length = 0.5f;
-    boxKopi.width = 0.5f;
-    boxKopi.height = 0.5f;
-
-    //gelas diatas ne
-    gelasBox.posX = -1.8f;
-    gelasBox.posY = 0.8f;
-    gelasBox.posZ = -3.0f;
-    gelasBox.rotationY = 0.0f;
-    gelasBox.length = 0.1f;
-    gelasBox.width = 0.1f;
-    gelasBox.height = 0.5f;
 
 
 }
@@ -1413,6 +1395,24 @@ void Gedung::drawAll() {
     glPushMatrix();
     
     glScalef(buildingScale, buildingScale, buildingScale); 
+
+    //mesin kopi kotak ne
+    boxKopi.posX = -2.0f;
+    boxKopi.posY = 0.8f;
+    boxKopi.posZ = -3.0f;
+    boxKopi.rotationY = -70.0f;
+    boxKopi.length = 0.5f;
+    boxKopi.width = 0.5f;
+    boxKopi.height = 0.5f;
+
+    //gelas diatas ne
+    gelasBox.posX = -1.8f;
+    gelasBox.posY = 0.8f;
+    gelasBox.posZ = -3.0f;
+    gelasBox.rotationY = 0.0f;
+    gelasBox.length = 0.1f;
+    gelasBox.width = 0.1f;
+    gelasBox.height = 0.5f;
 
    
     drawLantai1();
