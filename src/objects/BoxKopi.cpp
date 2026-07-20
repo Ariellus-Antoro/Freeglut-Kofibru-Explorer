@@ -12,9 +12,9 @@ BoxKopi::BoxKopi() {
     width = 0.5f;
     height = 0.5f;
 
-    colorR = 0.0f;
-    colorG = 0.0f;
-    colorB = 1.0f;
+    colorR = 0.5f;
+    colorG = 0.5f;
+    colorB = 0.55f;
 
     model.loadOBJ("src/models/BoxKopi.obj");
 }

@@ -12,9 +12,9 @@ GelasBox::GelasBox() {
     width = 0.1f;
     height = 0.5f;
 
-    colorR = 1.0f;
-    colorG = 0.0f;
-    colorB = 0.0f;
+    colorR = 0.70f;
+    colorG = 0.50f;
+    colorB = 0.30f;
 
     model.loadOBJ("src/models/GelasBox.obj");
 }

@@ -420,6 +420,25 @@ void Gedung::drawFurnitureLantai1(){
     glPopMatrix();
 
 
+
+    //mesin kopi kotak ne
+    boxKopi.posX = -1.25f;//positif ke kanan
+    boxKopi.posY = 0.8f;
+    boxKopi.posZ = -2.6;//naik ke positif = maju
+    boxKopi.rotationY = -180.0f;
+    boxKopi.length = 0.5f;
+    boxKopi.width = 0.5f;
+    boxKopi.height = 0.5f;
+
+    //gelas ne
+    gelasBox.posX = -1.45f;
+    gelasBox.posY = 1.1f;
+    gelasBox.posZ = -2.8f;
+    gelasBox.rotationY = 0.0f;
+    gelasBox.length = 0.1f;
+    gelasBox.width = 0.1f;
+    gelasBox.height = 0.5f;
+
 }
 
 void Gedung::drawLantai2() {
@@ -1396,23 +1415,7 @@ void Gedung::drawAll() {
     
     glScalef(buildingScale, buildingScale, buildingScale); 
 
-    //mesin kopi kotak ne
-    boxKopi.posX = -2.0f;
-    boxKopi.posY = 0.8f;
-    boxKopi.posZ = -3.0f;
-    boxKopi.rotationY = -70.0f;
-    boxKopi.length = 0.5f;
-    boxKopi.width = 0.5f;
-    boxKopi.height = 0.5f;
-
-    //gelas diatas ne
-    gelasBox.posX = -1.8f;
-    gelasBox.posY = 0.8f;
-    gelasBox.posZ = -3.0f;
-    gelasBox.rotationY = 0.0f;
-    gelasBox.length = 0.1f;
-    gelasBox.width = 0.1f;
-    gelasBox.height = 0.5f;
+    
 
    
     drawLantai1();

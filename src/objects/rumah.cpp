@@ -6,7 +6,6 @@
 #include "objects/Rumput.h"
 #include "objects/Jalan.h"
 #include "objects/Baliho.h"
-#include "objects/TerasDepan.h"
 
 Pembatas pembatasDepan;
 Pembatas pembatasSamping;
@@ -19,7 +18,6 @@ Kofibru logoKofibruKedua;
 Jalan jalanDepan;
 Jalan jalanSamping;
 Baliho balihoDepan;
-TerasDepan batasTeras;
 
 Rumah::Rumah()
 {
@@ -184,11 +182,6 @@ void Rumah::drawAll()
     balihoDepan.width = 3.0f;
     balihoDepan.height = 2.0f;
 
-    // Batas teras yang diluar
-    batasTeras.posX = -3.0f;
-    batasTeras.posY = 0.0f;
-    batasTeras.posZ = 7.0f;
-    batasTeras.rotationY = -90.0f;
  // ganti sesuai ukuran yang kamu mau
 
     // =====================
@@ -204,7 +197,6 @@ void Rumah::drawAll()
     jalanDepan.drawAll();
     jalanSamping.drawAll();
     balihoDepan.drawAll();
-    batasTeras.drawAll();
     // =====================
     // Ruko (posisi & skala diatur di sini, persis pola kasir di Gedung.cpp)
     // =====================
